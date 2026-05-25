@@ -1,193 +1,155 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+} from "firebase/firestore";
+
+import { db } from "../../firebase";
+
 import Navbar from "../../Components/Navbar";
 
-const leaderboardData = [
-  {
-    rank: 1,
-    username: "ShadowByte",
-    xp: 2840,
-    tier: "Diamond",
-  },
-
-  {
-    rank: 2,
-    username: "CodeTitan",
-    xp: 2610,
-    tier: "Platinum",
-  },
-
-  {
-    rank: 3,
-    username: "AlgoKnight",
-    xp: 2480,
-    tier: "Gold",
-  },
-
-  {
-    rank: 4,
-    username: "BinaryWizard",
-    xp: 2320,
-    tier: "Silver",
-  },
-
-  {
-    rank: 5,
-    username: "NullPointer",
-    xp: 2200,
-    tier: "Silver",
-  },
-];
-
 export default function LeaderboardPage() {
-  return (
-    <main className="min-h-screen bg-gradient-to-br from-black via-indigo-950 to-purple-950 text-white">
+  const [users, setUsers] =
+    useState<any[]>([]);
 
+  useEffect(() => {
+    async function fetchLeaderboard() {
+      const q = query(
+        collection(db, "users"),
+        orderBy("xp", "desc")
+      );
+
+      const querySnapshot =
+        await getDocs(q);
+
+      const leaderboardUsers =
+        querySnapshot.docs.map(
+          (doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          })
+        );
+
+      setUsers(leaderboardUsers);
+    }
+
+    fetchLeaderboard();
+  }, []);
+
+  function getMedal(index: number) {
+    if (index === 0) return "🥇";
+
+    if (index === 1) return "🥈";
+
+    if (index === 2) return "🥉";
+
+    return "🎯";
+  }
+
+  function getCardStyle(index: number) {
+    if (index === 0)
+      return "from-yellow-500/20 to-yellow-700/10 border-yellow-500";
+
+    if (index === 1)
+      return "from-zinc-300/10 to-zinc-500/10 border-zinc-400";
+
+    if (index === 2)
+      return "from-orange-500/20 to-orange-700/10 border-orange-500";
+
+    return "from-zinc-900 to-zinc-900 border-zinc-800";
+  }
+
+  return (
+    <main className="min-h-screen bg-black text-white">
       <Navbar />
 
-      <section className="p-8">
-
-        {/* Header */}
-        <div className="mb-12 text-center">
-
-          <h1 className="mb-4 text-6xl font-extrabold">
-            Leaderboard 🏆
+      <div className="max-w-6xl mx-auto px-6 py-10">
+        <div className="mb-12">
+          <h1 className="text-6xl font-bold mb-4">
+            Leaderboard
           </h1>
 
-          <p className="text-xl text-gray-300">
-            Battle harder. Climb higher.
+          <p className="text-zinc-400 text-xl">
+            Compete against other
+            students and climb the
+            rankings.
           </p>
-
         </div>
 
-        {/* Top Players */}
-        <div className="mb-16 grid gap-8 md:grid-cols-3">
-
-          {leaderboardData.slice(0, 3).map((player) => (
-
+        <div className="space-y-5">
+          {users.map((user, index) => (
             <div
-              key={player.rank}
-              className={`rounded-3xl border bg-white/10 p-8 text-center backdrop-blur-md transition hover:scale-105
-
-              ${
-                player.rank === 1
-                  ? "border-yellow-400 shadow-lg shadow-yellow-500/20"
-                  : player.rank === 2
-                  ? "border-gray-300 shadow-lg shadow-gray-400/20"
-                  : "border-orange-400 shadow-lg shadow-orange-500/20"
-              }
-              `}
+              key={user.id}
+              className={`bg-gradient-to-r ${getCardStyle(
+                index
+              )} border rounded-3xl p-8 flex items-center justify-between hover:scale-[1.01] transition-all duration-300`}
             >
+              <div className="flex items-center gap-8">
+                <div className="text-6xl">
+                  {getMedal(index)}
+                </div>
 
-              {/* Medal */}
-              <div className="mb-4 text-6xl">
-                {player.rank === 1
-                  ? "🥇"
-                  : player.rank === 2
-                  ? "🥈"
-                  : "🥉"}
-              </div>
+                <div>
+                  <div className="flex items-center gap-4 mb-2">
+                    <h2 className="text-3xl font-bold">
+                      #{index + 1}
+                    </h2>
 
-              {/* Username */}
-              <h2 className="mb-2 text-3xl font-bold">
-                {player.username}
-              </h2>
-
-              {/* Rank */}
-              <p className="mb-6 text-gray-300">
-                Global Rank #{player.rank}
-              </p>
-
-              {/* XP */}
-              <div className="mb-4 rounded-2xl bg-black/30 p-4">
-
-                <p className="mb-1 text-sm text-gray-400">
-                  XP
-                </p>
-
-                <h3 className="text-3xl font-extrabold text-purple-300">
-                  {player.xp}
-                </h3>
-
-              </div>
-
-              {/* Tier */}
-              <div className="rounded-2xl bg-purple-500/20 p-4">
-
-                <p className="mb-1 text-sm text-gray-400">
-                  Rank Tier
-                </p>
-
-                <h3 className="text-2xl font-bold">
-                  {player.tier}
-                </h3>
-
-              </div>
-
-            </div>
-
-          ))}
-
-        </div>
-
-        {/* Other Players */}
-        <div className="rounded-3xl border border-white/10 bg-white/10 p-8 backdrop-blur-md">
-
-          <h2 className="mb-8 text-3xl font-bold">
-            Global Rankings
-          </h2>
-
-          <div className="space-y-5">
-
-            {leaderboardData.slice(3).map((player) => (
-
-              <div
-                key={player.rank}
-                className="flex items-center justify-between rounded-2xl bg-black/30 p-5 transition hover:bg-purple-500/20"
-              >
-
-                {/* Left */}
-                <div className="flex items-center gap-6">
-
-                  <div className="text-3xl font-extrabold text-purple-300">
-                    #{player.rank}
+                    <h2 className="text-3xl font-bold">
+                      {user.name}
+                    </h2>
                   </div>
 
-                  <div>
-
-                    <h3 className="text-2xl font-bold">
-                      {player.username}
-                    </h3>
-
-                    <p className="text-gray-400">
-                      Competitive Challenger
+                  <div className="flex gap-6 text-zinc-400">
+                    <p>
+                      🔥{" "}
+                      {user.streak} Day
+                      Streak
                     </p>
 
+                    <p>
+                      ⚔️ ELO:{" "}
+                      {user.elo}
+                    </p>
                   </div>
-
                 </div>
-
-                {/* Right */}
-                <div className="flex gap-4">
-
-                  <div className="rounded-xl bg-purple-500/20 px-4 py-2 font-bold">
-                    XP: {player.xp}
-                  </div>
-
-                  <div className="rounded-xl bg-blue-500/20 px-4 py-2 font-bold">
-                    {player.tier}
-                  </div>
-
-                </div>
-
               </div>
 
-            ))}
+              <div className="text-right">
+                <p className="text-zinc-400 mb-2">
+                  TOTAL XP
+                </p>
 
-          </div>
-
+                <h2 className="text-5xl font-bold text-green-400">
+                  {user.xp}
+                </h2>
+              </div>
+            </div>
+          ))}
         </div>
 
-      </section>
+        {users.length === 0 && (
+          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-12 text-center mt-10">
+            <div className="text-7xl mb-6">
+              🏆
+            </div>
 
+            <h2 className="text-4xl font-bold mb-4">
+              No Rankings Yet
+            </h2>
+
+            <p className="text-zinc-400 text-lg">
+              Complete quizzes to appear
+              on the leaderboard.
+            </p>
+          </div>
+        )}
+      </div>
     </main>
   );
 }

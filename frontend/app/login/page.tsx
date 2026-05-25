@@ -1,49 +1,51 @@
 "use client";
 
-import Navbar from "../../Components/Navbar";
+import { useRouter } from "next/navigation";
+
+import { signInWithGoogle } from "../../auth";
 
 export default function LoginPage() {
+  const router = useRouter();
 
-  function handleLogin() {
+  async function handleLogin() {
+    const user = await signInWithGoogle();
 
-    alert("Firebase Google Authentication will be connected here later.");
+    if (user) {
+      router.push("/dashboard");
+    }
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-black via-indigo-950 to-purple-950 text-white">
+    <main className="min-h-screen bg-black text-white flex items-center justify-center px-6">
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/20 via-black to-purple-900/20" />
 
-      <Navbar />
-
-      <section className="flex min-h-[85vh] items-center justify-center px-6">
-
-        <div className="w-full max-w-md rounded-3xl border border-white/10 bg-white/10 p-10 text-center backdrop-blur-md">
-
-          {/* Title */}
-          <h1 className="mb-4 text-5xl font-extrabold">
+      <div className="relative bg-zinc-900 border border-zinc-800 rounded-3xl p-10 w-full max-w-md shadow-2xl">
+        <div className="mb-8">
+          <h1 className="text-5xl font-bold mb-3">
             NUS BattlePrep
           </h1>
 
-          <p className="mb-10 text-lg text-gray-300">
-            Continue with your NUS account to start battling.
+          <p className="text-zinc-400 text-lg">
+            Competitive preparation for
+            NUS computing modules.
           </p>
-
-          {/* Login Button */}
-          <button
-            onClick={handleLogin}
-            className="w-full rounded-2xl bg-purple-600 p-5 text-lg font-bold transition hover:bg-purple-500"
-          >
-            Continue with NUS Account
-          </button>
-
-          {/* Footer */}
-          <p className="mt-8 text-sm text-gray-400">
-            Only NUS email accounts will be allowed access.
-          </p>
-
         </div>
 
-      </section>
+        <div className="space-y-4">
+          <button
+            onClick={handleLogin}
+            className="w-full bg-indigo-600 hover:bg-indigo-500 transition-all duration-200 p-4 rounded-2xl text-xl font-semibold hover:scale-[1.02]"
+          >
+            Sign in with Google
+          </button>
+        </div>
 
+        <div className="mt-8 border-t border-zinc-800 pt-6">
+          <p className="text-zinc-500 text-sm">
+            Practice. Compete. Climb the leaderboard.
+          </p>
+        </div>
+      </div>
     </main>
   );
 }

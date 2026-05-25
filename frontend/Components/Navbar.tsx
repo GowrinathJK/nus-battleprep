@@ -1,56 +1,51 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
+
+import { signOut } from "firebase/auth";
+
+import { auth } from "../firebase";
 
 export default function Navbar() {
+  const router = useRouter();
+
+  async function handleLogout() {
+    await signOut(auth);
+
+    router.push("/login");
+  }
+
   return (
-    <nav className="flex items-center justify-between border-b border-white/10 bg-black/30 px-8 py-5 text-white backdrop-blur-md">
+    <nav className="w-full bg-zinc-950 border-b border-zinc-800 px-8 py-4 flex items-center justify-between">
+      <div
+        onClick={() => router.push("/dashboard")}
+        className="text-2xl font-bold cursor-pointer hover:text-indigo-400 transition"
+      >
+        NUS BattlePrep
+      </div>
 
-      {/* Logo */}
-      <Link href="/">
-        <h1 className="cursor-pointer text-3xl font-extrabold tracking-wide">
-          NUS <span className="text-purple-400">BattlePrep</span>
-        </h1>
-      </Link>
+      <div className="flex items-center gap-6">
+        <button
+          onClick={() => router.push("/quiz")}
+          className="hover:text-indigo-400 transition"
+        >
+          Quiz
+        </button>
 
-      {/* Navigation */}
-      <ul className="flex items-center gap-8 text-lg font-medium text-gray-300">
+        <button
+          onClick={() => router.push("/leaderboard")}
+          className="hover:text-indigo-400 transition"
+        >
+          Leaderboard
+        </button>
 
-        <li>
-          <Link
-            href="/login"
-            className="transition hover:text-purple-400"
-          >
-            Login
-          </Link>
-        </li>
-
-        <li>
-          <Link
-            href="/dashboard"
-            className="transition hover:text-purple-400"
-          >
-            Dashboard
-          </Link>
-        </li>
-
-        <li>
-          <Link
-            href="/leaderboard"
-            className="transition hover:text-purple-400"
-          >
-            Leaderboard
-          </Link>
-        </li>
-
-        <li>
-          <Link
-            href="/setup"
-            className="rounded-xl bg-purple-600 px-5 py-2 text-white shadow-lg shadow-purple-500/40 transition hover:scale-105 hover:bg-purple-500"
-          >
-            Start Battle
-          </Link>
-        </li>
-
-      </ul>
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 px-4 py-2 rounded-xl hover:scale-105 transition"
+        >
+          Logout
+        </button>
+      </div>
     </nav>
   );
 }
