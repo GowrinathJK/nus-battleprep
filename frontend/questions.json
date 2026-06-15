@@ -1,0 +1,3493 @@
+[
+  {
+    "id": 1,
+    "module": "CS2030S",
+    "topic": "Information Hiding",
+    "scope": "Midterm",
+    "difficulty": "Easy",
+    "question": "Which statement best describes information hiding?",
+    "options": [
+      "Making all fields private",
+      "Hiding implementation details behind a stable interface",
+      "Preventing inheritance",
+      "Using abstract classes only"
+    ],
+    "answer": "Hiding implementation details behind a stable interface",
+    "explanation": "Information hiding focuses on exposing behavior while concealing implementation details.",
+    "points": 5
+  },
+  {
+    "id": 2,
+    "module": "CS2030S",
+    "topic": "Tell Don't Ask",
+    "scope": "Midterm",
+    "difficulty": "Easy",
+    "question": "Which code pattern most likely violates the Tell Don't Ask principle?",
+    "options": [
+      "account.withdraw(50)",
+      "account.deposit(20)",
+      "if(account.getBalance() > 50) account.withdraw(50)",
+      "bank.transfer(a,b,50)"
+    ],
+    "answer": "if(account.getBalance() > 50) account.withdraw(50)",
+    "explanation": "The caller asks for state and then decides what to do instead of telling the object to perform the action.",
+    "points": 5
+  },
+  {
+    "id": 3,
+    "module": "CS2030S",
+    "topic": "LSP",
+    "scope": "Midterm",
+    "difficulty": "Easy",
+    "question": "A subclass violates the Liskov Substitution Principle when it:",
+    "options": [
+      "Overrides a method",
+      "Strengthens preconditions",
+      "Implements an interface",
+      "Uses generics"
+    ],
+    "answer": "Strengthens preconditions",
+    "explanation": "A subtype should not require more restrictive conditions than its supertype.",
+    "points": 5
+  },
+  {
+    "id": 4,
+    "module": "CS2030S",
+    "topic": "Inheritance",
+    "scope": "Midterm",
+    "difficulty": "Easy",
+    "question": "Given Animal a = new Dog(); what is the compile-time type of a?",
+    "options": [
+      "Dog",
+      "Animal",
+      "Object",
+      "Depends on runtime"
+    ],
+    "answer": "Animal",
+    "explanation": "The declared type determines the compile-time type.",
+    "points": 5
+  },
+  {
+    "id": 5,
+    "module": "CS2030S",
+    "topic": "Dynamic Dispatch",
+    "scope": "Midterm",
+    "difficulty": "Easy",
+    "question": "If Dog overrides sound() and Animal a = new Dog(); then a.sound() invokes:",
+    "options": [
+      "Animal.sound()",
+      "Dog.sound()",
+      "Both methods",
+      "Compilation error"
+    ],
+    "answer": "Dog.sound()",
+    "explanation": "Java uses dynamic dispatch for overridden instance methods.",
+    "points": 5
+  },
+  {
+    "id": 6,
+    "module": "CS2030S",
+    "topic": "Interfaces",
+    "scope": "Midterm",
+    "difficulty": "Easy",
+    "question": "Which statement about interfaces is true?",
+    "options": [
+      "A class can implement only one interface",
+      "Interfaces cannot contain methods",
+      "A class may implement multiple interfaces",
+      "Interfaces cannot be extended"
+    ],
+    "answer": "A class may implement multiple interfaces",
+    "explanation": "Java supports multiple interface inheritance.",
+    "points": 5
+  },
+  {
+    "id": 7,
+    "module": "CS2030S",
+    "topic": "Generics",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Why does List<Integer> not subtype List<Number>?",
+    "options": [
+      "Generics are invariant",
+      "Integers are immutable",
+      "Lists are final",
+      "Number is abstract"
+    ],
+    "answer": "Generics are invariant",
+    "explanation": "Java generics are invariant to maintain type safety.",
+    "points": 10
+  },
+  {
+    "id": 8,
+    "module": "CS2030S",
+    "topic": "PECS",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "According to PECS, which wildcard is appropriate when reading values from a collection?",
+    "options": [
+      "? super T",
+      "? extends T",
+      "? implements T",
+      "? generic T"
+    ],
+    "answer": "? extends T",
+    "explanation": "Producer Extends, Consumer Super.",
+    "points": 10
+  },
+  {
+    "id": 9,
+    "module": "CS2030S",
+    "topic": "Wildcards",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which type can reference both List<Integer> and List<Double>?",
+    "options": [
+      "List<Number>",
+      "List<Object>",
+      "List<? extends Number>",
+      "List<Integer>"
+    ],
+    "answer": "List<? extends Number>",
+    "explanation": "The upper bounded wildcard accepts lists of any subtype of Number.",
+    "points": 10
+  },
+  {
+    "id": 10,
+    "module": "CS2030S",
+    "topic": "Type Erasure",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What happens to generic type parameters at runtime in Java?",
+    "options": [
+      "They are preserved completely",
+      "They are erased",
+      "They become interfaces",
+      "They become annotations"
+    ],
+    "answer": "They are erased",
+    "explanation": "Java implements generics through type erasure.",
+    "points": 10
+  },
+  {
+    "id": 11,
+    "module": "CS2030S",
+    "topic": "Functional Interfaces",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which of the following qualifies as a functional interface?",
+    "options": [
+      "An interface with one abstract method",
+      "An interface with one default method",
+      "An interface with one static method",
+      "An interface with no methods"
+    ],
+    "answer": "An interface with one abstract method",
+    "explanation": "A functional interface contains exactly one abstract method.",
+    "points": 10
+  },
+  {
+    "id": 12,
+    "module": "CS2030S",
+    "topic": "Lambda",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What is the result of evaluating x -> x + 1?",
+    "options": [
+      "A method call",
+      "A lambda expression",
+      "A constructor reference",
+      "A generic type"
+    ],
+    "answer": "A lambda expression",
+    "explanation": "The arrow syntax defines a lambda expression.",
+    "points": 10
+  },
+  {
+    "id": 13,
+    "module": "CS2030S",
+    "topic": "Type Inference",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "In Mystery.first(1, 2.0), what is the inferred common type?",
+    "options": [
+      "Integer",
+      "Double",
+      "Number",
+      "Object"
+    ],
+    "answer": "Number",
+    "explanation": "The compiler finds the nearest common supertype that satisfies both arguments.",
+    "points": 10
+  },
+  {
+    "id": 14,
+    "module": "CS2030S",
+    "topic": "Generics",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which declaration compiles successfully?",
+    "options": [
+      "List<Number> x = new ArrayList<Integer>()",
+      "List<?> x = new ArrayList<Integer>()",
+      "List<Object> x = new ArrayList<String>()",
+      "List<Integer> x = new ArrayList<Number>()"
+    ],
+    "answer": "List<?> x = new ArrayList<Integer>()",
+    "explanation": "An unbounded wildcard can reference lists of any element type.",
+    "points": 10
+  },
+  {
+    "id": 15,
+    "module": "CS2030S",
+    "topic": "PECS",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "When using List<? extends Number>, which operation is guaranteed to be safe?",
+    "options": [
+      "Adding Integer values",
+      "Adding Double values",
+      "Reading Number values",
+      "Replacing elements"
+    ],
+    "answer": "Reading Number values",
+    "explanation": "The compiler cannot safely determine what subtype the list actually stores.",
+    "points": 10
+  },
+  {
+    "id": 16,
+    "module": "CS2030S",
+    "topic": "Method References",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which of the following is a valid method reference?",
+    "options": [
+      "String:length",
+      "String::length",
+      "String=>length",
+      "String.length()"
+    ],
+    "answer": "String::length",
+    "explanation": "The double-colon operator denotes a method reference.",
+    "points": 10
+  },
+  {
+    "id": 17,
+    "module": "CS2030S",
+    "topic": "Streams",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What does map() primarily do in a stream pipeline?",
+    "options": [
+      "Filters elements",
+      "Transforms elements",
+      "Sorts elements",
+      "Counts elements"
+    ],
+    "answer": "Transforms elements",
+    "explanation": "map applies a function to each element and produces a new stream.",
+    "points": 10
+  },
+  {
+    "id": 18,
+    "module": "CS2030S",
+    "topic": "Streams",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What is the output of Stream.of(1,2,3).map(x -> x * x).toList()?",
+    "options": [
+      "[1,2,3]",
+      "[2,4,6]",
+      "[1,4,9]",
+      "[1,8,27]"
+    ],
+    "answer": "[1,4,9]",
+    "explanation": "Each element is squared before collection.",
+    "points": 10
+  },
+  {
+    "id": 19,
+    "module": "CS2030S",
+    "topic": "flatMap",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What is the main purpose of flatMap()?",
+    "options": [
+      "Flatten nested structures",
+      "Sort elements",
+      "Reduce elements",
+      "Filter elements"
+    ],
+    "answer": "Flatten nested structures",
+    "explanation": "flatMap converts nested streams into a single stream.",
+    "points": 10
+  },
+  {
+    "id": 20,
+    "module": "CS2030S",
+    "topic": "Reduce",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What does reduce() typically perform?",
+    "options": [
+      "Aggregation",
+      "Filtering",
+      "Mapping",
+      "Sorting"
+    ],
+    "answer": "Aggregation",
+    "explanation": "reduce combines stream elements into a single result.",
+    "points": 10
+  },
+  {
+    "id": 21,
+    "module": "CS2030S",
+    "topic": "Wildcards",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which operation is guaranteed to be safe on a List<?>?",
+    "options": [
+      "Adding an Integer",
+      "Adding a String",
+      "Reading elements as Object",
+      "Replacing existing elements"
+    ],
+    "answer": "Reading elements as Object",
+    "explanation": "Elements from List<?> can always be safely read as Object.",
+    "points": 10
+  },
+  {
+    "id": 22,
+    "module": "CS2030S",
+    "topic": "Compile Time Type",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Given Animal a = new Dog(); which methods are accessible at compile time?",
+    "options": [
+      "Only methods declared in Animal",
+      "Only methods declared in Dog",
+      "All methods in Dog",
+      "All methods in both Animal and Dog"
+    ],
+    "answer": "Only methods declared in Animal",
+    "explanation": "Compile-time accessibility depends on the declared type.",
+    "points": 10
+  },
+  {
+    "id": 23,
+    "module": "CS2030S",
+    "topic": "Runtime Type",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What determines which overridden method is executed?",
+    "options": [
+      "Compile-time type",
+      "Variable name",
+      "Runtime type",
+      "Package structure"
+    ],
+    "answer": "Runtime type",
+    "explanation": "Java uses dynamic dispatch for overridden methods.",
+    "points": 10
+  },
+  {
+    "id": 24,
+    "module": "CS2030S",
+    "topic": "Type Erasure",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Why can't Java overload methods that differ only in generic type parameters?",
+    "options": [
+      "JVM limitation",
+      "Type erasure produces identical signatures",
+      "Generics are invariant",
+      "Wildcards are unsupported"
+    ],
+    "answer": "Type erasure produces identical signatures",
+    "explanation": "Generic type information is removed during compilation.",
+    "points": 10
+  },
+  {
+    "id": 25,
+    "module": "CS2030S",
+    "topic": "Generics",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which declaration correctly creates a generic class instance?",
+    "options": [
+      "Box<int> box = new Box<int>()",
+      "Box<Integer> box = new Box<Integer>()",
+      "Box<primitive> box = new Box<primitive>()",
+      "Box<> box = new Box<>()"
+    ],
+    "answer": "Box<Integer> box = new Box<Integer>()",
+    "explanation": "Generics work with reference types, not primitive types.",
+    "points": 10
+  },
+  {
+    "id": 26,
+    "module": "CS2030S",
+    "topic": "Lambda",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which variable can be captured by a lambda expression?",
+    "options": [
+      "Any local variable",
+      "Only static variables",
+      "Only effectively final variables",
+      "Only instance variables"
+    ],
+    "answer": "Only effectively final variables",
+    "explanation": "Captured local variables must not be modified after initialization.",
+    "points": 10
+  },
+  {
+    "id": 27,
+    "module": "CS2030S",
+    "topic": "Functional Interfaces",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which built-in functional interface represents a function from T to R?",
+    "options": [
+      "Supplier<T>",
+      "Consumer<T>",
+      "Predicate<T>",
+      "Function<T,R>"
+    ],
+    "answer": "Function<T,R>",
+    "explanation": "Function accepts one input and produces one output.",
+    "points": 10
+  },
+  {
+    "id": 28,
+    "module": "CS2030S",
+    "topic": "Streams",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which stream operation is intermediate?",
+    "options": [
+      "count()",
+      "forEach()",
+      "collect()",
+      "map()"
+    ],
+    "answer": "map()",
+    "explanation": "map() returns another stream and does not trigger execution.",
+    "points": 10
+  },
+  {
+    "id": 29,
+    "module": "CS2030S",
+    "topic": "Stream Laziness",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "When are intermediate stream operations executed?",
+    "options": [
+      "Immediately",
+      "During compilation",
+      "When a terminal operation is invoked",
+      "When the stream is created"
+    ],
+    "answer": "When a terminal operation is invoked",
+    "explanation": "Streams are lazily evaluated.",
+    "points": 10
+  },
+  {
+    "id": 30,
+    "module": "CS2030S",
+    "topic": "Reduce",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What is the result of Stream.of(1,2,3,4).reduce(0, Integer::sum)?",
+    "options": [
+      "4",
+      "6",
+      "10",
+      "24"
+    ],
+    "answer": "10",
+    "explanation": "The reduce operation sums all elements: 1+2+3+4=10.",
+    "points": 10
+  },
+  {
+    "id": 31,
+    "module": "CS2030S",
+    "topic": "Compile-Time vs Runtime Type",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Given Animal a = new Dog(); which statement is true?",
+    "options": [
+      "Compile-time type is Dog",
+      "Runtime type is Animal",
+      "Compile-time type is Animal and runtime type is Dog",
+      "Both types are Dog"
+    ],
+    "answer": "Compile-time type is Animal and runtime type is Dog",
+    "explanation": "The declared type determines compile-time type while the instantiated object determines runtime type.",
+    "points": 10
+  },
+  {
+    "id": 32,
+    "module": "CS2030S",
+    "topic": "Method Overriding",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which keyword helps ensure a method correctly overrides another?",
+    "options": [
+      "extends",
+      "implements",
+      "@Override",
+      "@Inherited"
+    ],
+    "answer": "@Override",
+    "explanation": "The annotation lets the compiler verify overriding correctness.",
+    "points": 10
+  },
+  {
+    "id": 33,
+    "module": "CS2030S",
+    "topic": "Interfaces",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Why are interfaces useful?",
+    "options": [
+      "They allow multiple inheritance of implementation",
+      "They define behavior contracts",
+      "They prevent polymorphism",
+      "They replace classes"
+    ],
+    "answer": "They define behavior contracts",
+    "explanation": "Interfaces specify capabilities without dictating implementation.",
+    "points": 10
+  },
+  {
+    "id": 34,
+    "module": "CS2030S",
+    "topic": "Generics",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What problem do generics primarily solve?",
+    "options": [
+      "Concurrency",
+      "Memory management",
+      "Compile-time type safety",
+      "Garbage collection"
+    ],
+    "answer": "Compile-time type safety",
+    "explanation": "Generics catch type mismatches before runtime.",
+    "points": 10
+  },
+  {
+    "id": 35,
+    "module": "CS2030S",
+    "topic": "Wildcards",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which wildcard represents an upper bound?",
+    "options": [
+      "? super T",
+      "? extends T",
+      "? implements T",
+      "? generic T"
+    ],
+    "answer": "? extends T",
+    "explanation": "Upper bounded wildcards restrict accepted types to subtypes of T.",
+    "points": 10
+  },
+  {
+    "id": 36,
+    "module": "CS2030S",
+    "topic": "PECS",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "According to PECS, a consumer should use:",
+    "options": [
+      "? extends T",
+      "? super T",
+      "? wildcard T",
+      "? implements T"
+    ],
+    "answer": "? super T",
+    "explanation": "Consumer Super allows safe insertion of T values.",
+    "points": 10
+  },
+  {
+    "id": 37,
+    "module": "CS2030S",
+    "topic": "Type Erasure",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "After type erasure, List<String> becomes approximately:",
+    "options": [
+      "List<String>",
+      "List<Object>",
+      "List<?>",
+      "List<T>"
+    ],
+    "answer": "List<Object>",
+    "explanation": "Generic information is erased and replaced by the upper bound.",
+    "points": 10
+  },
+  {
+    "id": 38,
+    "module": "CS2030S",
+    "topic": "Lambda",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which lambda implements Function<Integer,Integer>?",
+    "options": [
+      "x -> x + 1",
+      "() -> 1",
+      "x -> System.out.println(x)",
+      "() -> {}"
+    ],
+    "answer": "x -> x + 1",
+    "explanation": "It accepts an Integer and returns an Integer.",
+    "points": 10
+  },
+  {
+    "id": 39,
+    "module": "CS2030S",
+    "topic": "Method References",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which method reference is equivalent to x -> x.toString()?",
+    "options": [
+      "Object::toString",
+      "String::valueOf",
+      "Integer::parseInt",
+      "System.out::println"
+    ],
+    "answer": "Object::toString",
+    "explanation": "The method reference invokes toString on the receiver object.",
+    "points": 10
+  },
+  {
+    "id": 40,
+    "module": "CS2030S",
+    "topic": "Streams",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which operation is terminal?",
+    "options": [
+      "map",
+      "filter",
+      "flatMap",
+      "count"
+    ],
+    "answer": "count",
+    "explanation": "count() consumes the stream and produces a result.",
+    "points": 10
+  },
+  {
+    "id": 41,
+    "module": "CS2030S",
+    "topic": "Code Tracing",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What is printed?\n\nclass A {\n  void foo() { System.out.print(\"A\"); }\n}\nclass B extends A {\n  void foo() { System.out.print(\"B\"); }\n}\nA a = new B();\na.foo();",
+    "options": ["A", "B", "AB", "Compilation Error"],
+    "answer": "B",
+    "explanation": "Dynamic dispatch invokes B.foo().",
+    "points": 10
+  },
+  {
+    "id": 42,
+    "module": "CS2030S",
+    "topic": "Code Tracing",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What is printed?\n\nList<Integer> list = List.of(1,2,3);\nSystem.out.println(list.size());",
+    "options": ["0", "1", "2", "3"],
+    "answer": "3",
+    "explanation": "The list contains three elements.",
+    "points": 10
+  },
+  {
+    "id": 43,
+    "module": "CS2030S",
+    "topic": "Lambda",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What is printed?\n\nFunction<Integer,Integer> f = x -> x * 2;\nSystem.out.println(f.apply(5));",
+    "options": ["5", "7", "10", "25"],
+    "answer": "10",
+    "explanation": "5 multiplied by 2 equals 10.",
+    "points": 10
+  },
+  {
+    "id": 44,
+    "module": "CS2030S",
+    "topic": "Streams",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What is printed?\n\nStream.of(1,2,3)\n  .map(x -> x + 1)\n  .forEach(System.out::print);",
+    "options": ["123", "234", "246", "345"],
+    "answer": "234",
+    "explanation": "Each element is incremented before printing.",
+    "points": 10
+  },
+  {
+    "id": 45,
+    "module": "CS2030S",
+    "topic": "Generics",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which line compiles?",
+    "options": [
+      "List<Number> x = new ArrayList<Integer>();",
+      "List<?> x = new ArrayList<Integer>();",
+      "List<Object> x = new ArrayList<String>();",
+      "List<Integer> x = new ArrayList<Number>();"
+    ],
+    "answer": "List<?> x = new ArrayList<Integer>();",
+    "explanation": "Wildcard references any generic type safely.",
+    "points": 10
+  },
+  {
+    "id": 46,
+    "module": "CS2030S",
+    "topic": "Type Inference",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What is the inferred type T?\n\n<T> T first(T a, T b)\n\nfirst(1, 2.0)",
+    "options": ["Integer", "Double", "Number", "Object"],
+    "answer": "Number",
+    "explanation": "The nearest common supertype is Number.",
+    "points": 10
+  },
+  {
+    "id": 47,
+    "module": "CS2030S",
+    "topic": "Wildcards",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What can be safely added to List<?>?",
+    "options": ["Integer", "String", "Object", "Nothing except null"],
+    "answer": "Nothing except null",
+    "explanation": "The compiler cannot determine the actual element type.",
+    "points": 10
+  },
+  {
+    "id": 48,
+    "module": "CS2030S",
+    "topic": "Functional Interfaces",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which interface is a Predicate<Integer>?",
+    "options": [
+      "x -> x + 1",
+      "x -> x > 0",
+      "() -> 1",
+      "() -> true"
+    ],
+    "answer": "x -> x > 0",
+    "explanation": "Predicates return boolean values.",
+    "points": 10
+  },
+  {
+    "id": 49,
+    "module": "CS2030S",
+    "topic": "Method References",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "Which lambda is equivalent to Integer::parseInt?",
+    "options": [
+      "x -> Integer.parseInt(x)",
+      "() -> Integer.parseInt()",
+      "x -> x.parseInt()",
+      "Integer -> parseInt"
+    ],
+    "answer": "x -> Integer.parseInt(x)",
+    "explanation": "Method references are shorthand for equivalent lambdas.",
+    "points": 10
+  },
+  {
+    "id": 50,
+    "module": "CS2030S",
+    "topic": "Streams",
+    "scope": "Midterm",
+    "difficulty": "Medium",
+    "question": "What is printed?\n\nint x = Stream.of(1,2,3)\n  .reduce(0, Integer::sum);\nSystem.out.println(x);",
+    "options": ["3", "5", "6", "0"],
+    "answer": "6",
+    "explanation": "The stream elements are summed together.",
+    "points": 10
+  },
+  {
+    "id": 51,
+    "module": "CS2030S",
+    "topic": "Lazy",
+    "scope": "Final",
+    "difficulty": "Hard",
+    "question": "What is the primary purpose of Lazy<T>?",
+    "options": [
+      "Store immutable values",
+      "Delay computation until needed",
+      "Improve inheritance",
+      "Prevent exceptions"
+    ],
+    "answer": "Delay computation until needed",
+    "explanation": "Lazy postpones evaluation until the value is requested.",
+    "points": 15
+  },
+  {
+    "id": 52,
+    "module": "CS2030S",
+    "topic": "Lazy",
+    "scope": "Final",
+    "difficulty": "Hard",
+    "question": "A correctly implemented Lazy<T> should evaluate its supplier:",
+    "options": [
+      "Every time get() is called",
+      "Only once",
+      "During construction",
+      "Never"
+    ],
+    "answer": "Only once",
+    "explanation": "The computed value is memoized after the first evaluation.",
+    "points": 15
+  },
+  {
+    "id": 53,
+    "module": "CS2030S",
+    "topic": "InfiniteList",
+    "scope": "Final",
+    "difficulty": "Hard",
+    "question": "Why can't an InfiniteList be eagerly evaluated?",
+    "options": [
+      "It contains generics",
+      "It uses inheritance",
+      "It may never terminate",
+      "Java forbids it"
+    ],
+    "answer": "It may never terminate",
+    "explanation": "An infinite sequence cannot be fully computed in advance.",
+    "points": 15
+  },
+  {
+    "id": 54,
+    "module": "CS2030S",
+    "topic": "InfiniteList",
+    "scope": "Final",
+    "difficulty": "Hard",
+    "question": "Which operation allows obtaining a finite result from an InfiniteList?",
+    "options": [
+      "limit",
+      "repeat",
+      "iterate",
+      "generate"
+    ],
+    "answer": "limit",
+    "explanation": "limit truncates the sequence to a finite number of elements.",
+    "points": 15
+  },
+  {
+    "id": 55,
+    "module": "CS2030S",
+    "topic": "Maybe",
+    "scope": "Final",
+    "difficulty": "Hard",
+    "question": "Maybe<T> is primarily used to:",
+    "options": [
+      "Replace loops",
+      "Represent optional values safely",
+      "Improve performance",
+      "Support inheritance"
+    ],
+    "answer": "Represent optional values safely",
+    "explanation": "Maybe avoids null-related errors by making absence explicit.",
+    "points": 15
+  },
+  {
+    "id": 56,
+    "module": "CS2030S",
+    "topic": "Maybe",
+    "scope": "Final",
+    "difficulty": "Hard",
+    "question": "What should map() on an empty Maybe return?",
+    "options": [
+      "null",
+      "Exception",
+      "Another empty Maybe",
+      "The original value"
+    ],
+    "answer": "Another empty Maybe",
+    "explanation": "Mapping over an absent value preserves absence.",
+    "points": 15
+  },
+  {
+    "id": 57,
+    "module": "CS2030S",
+    "topic": "Monads",
+    "scope": "Final",
+    "difficulty": "Hard",
+    "question": "Why is flatMap preferred over map when the mapping function returns Maybe<T>?",
+    "options": [
+      "It is faster",
+      "It avoids nested containers",
+      "It uses less memory",
+      "It supports inheritance"
+    ],
+    "answer": "It avoids nested containers",
+    "explanation": "flatMap flattens nested structures such as Maybe<Maybe<T>>.",
+    "points": 15
+  },
+  {
+    "id": 58,
+    "module": "CS2030S",
+    "topic": "CompletableFuture",
+    "scope": "Final",
+    "difficulty": "Hard",
+    "question": "What is CompletableFuture primarily used for?",
+    "options": [
+      "Database storage",
+      "Asynchronous computation",
+      "Generics",
+      "Recursion"
+    ],
+    "answer": "Asynchronous computation",
+    "explanation": "CompletableFuture represents a value available in the future.",
+    "points": 15
+  },
+  {
+    "id": 59,
+    "module": "CS2030S",
+    "topic": "CompletableFuture",
+    "scope": "Final",
+    "difficulty": "Hard",
+    "question": "Which method transforms a CompletableFuture result?",
+    "options": [
+      "thenApply",
+      "thenStore",
+      "thenCast",
+      "thenLoop"
+    ],
+    "answer": "thenApply",
+    "explanation": "thenApply applies a function to the completed result.",
+    "points": 15
+  },
+  {
+    "id": 60,
+    "module": "CS2030S",
+    "topic": "Immutability",
+    "scope": "Final",
+    "difficulty": "Hard",
+    "question": "Which property is required for an immutable object?",
+    "options": [
+      "State cannot change after construction",
+      "All methods must be static",
+      "Must implement Comparable",
+      "Must be abstract"
+    ],
+    "answer": "State cannot change after construction",
+    "explanation": "Immutable objects do not allow modification after creation.",
+    "points": 15
+  },
+{
+  "id": 61,
+  "module": "CS2030S",
+  "topic": "Lazy",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Assuming Lazy<T> memoizes values, how many times is the supplier executed if get() is called three times?",
+  "options": [
+    "0",
+    "1",
+    "2",
+    "3"
+  ],
+  "answer": "1",
+  "explanation": "Memoization stores the computed value after the first evaluation.",
+  "points": 15
+},
+
+{
+  "id": 62,
+  "module": "CS2030S",
+  "topic": "Lazy",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which operation should remain lazy when implemented correctly?",
+  "options": [
+    "map",
+    "get",
+    "orElse",
+    "equals"
+  ],
+  "answer": "map",
+  "explanation": "map should create another deferred computation instead of evaluating immediately.",
+  "points": 15
+},
+
+{
+  "id": 63,
+  "module": "CS2030S",
+  "topic": "InfiniteList",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the main purpose of InfiniteList?",
+  "options": [
+    "Store arrays",
+    "Represent lazily generated sequences",
+    "Replace streams",
+    "Improve inheritance"
+  ],
+  "answer": "Represent lazily generated sequences",
+  "explanation": "InfiniteList generates values only when required.",
+  "points": 15
+},
+
+{
+  "id": 64,
+  "module": "CS2030S",
+  "topic": "InfiniteList",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which operation prevents an InfiniteList from running forever?",
+  "options": [
+    "generate",
+    "iterate",
+    "limit",
+    "map"
+  ],
+  "answer": "limit",
+  "explanation": "limit truncates the sequence into a finite one.",
+  "points": 15
+},
+
+{
+  "id": 65,
+  "module": "CS2030S",
+  "topic": "Maybe",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Maybe.none().map(x -> x + 1) should return:",
+  "options": [
+    "1",
+    "null",
+    "Maybe.none()",
+    "Exception"
+  ],
+  "answer": "Maybe.none()",
+  "explanation": "Mapping over an empty container preserves emptiness.",
+  "points": 15
+},
+
+{
+  "id": 66,
+  "module": "CS2030S",
+  "topic": "Maybe",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What problem is Maybe<T> primarily designed to solve?",
+  "options": [
+    "Concurrency",
+    "Null handling",
+    "Sorting",
+    "Recursion"
+  ],
+  "answer": "Null handling",
+  "explanation": "Maybe makes the absence of values explicit.",
+  "points": 15
+},
+
+{
+  "id": 67,
+  "module": "CS2030S",
+  "topic": "flatMap",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Why is flatMap preferred when the mapping function returns Maybe<T>?",
+  "options": [
+    "Better performance",
+    "Avoids nested containers",
+    "Uses less memory",
+    "Improves type erasure"
+  ],
+  "answer": "Avoids nested containers",
+  "explanation": "Without flatMap, nested structures such as Maybe<Maybe<T>> appear.",
+  "points": 15
+},
+
+{
+  "id": 68,
+  "module": "CS2030S",
+  "topic": "Monads",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which operation is typically associated with monadic chaining?",
+  "options": [
+    "reduce",
+    "flatMap",
+    "count",
+    "sorted"
+  ],
+  "answer": "flatMap",
+  "explanation": "flatMap enables composition of computations inside containers.",
+  "points": 15
+},
+
+{
+  "id": 69,
+  "module": "CS2030S",
+  "topic": "CompletableFuture",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What does thenApply() return?",
+  "options": [
+    "A transformed CompletableFuture",
+    "A Thread",
+    "A FutureTask",
+    "A Supplier"
+  ],
+  "answer": "A transformed CompletableFuture",
+  "explanation": "thenApply creates a new future containing the transformed result.",
+  "points": 15
+},
+
+{
+  "id": 70,
+  "module": "CS2030S",
+  "topic": "CompletableFuture",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which statement best describes CompletableFuture?",
+  "options": [
+    "A database wrapper",
+    "A future value that may complete asynchronously",
+    "A generic collection",
+    "A synchronization lock"
+  ],
+  "answer": "A future value that may complete asynchronously",
+  "explanation": "CompletableFuture models computations that finish later.",
+  "points": 15
+},
+{
+  "id": 71,
+  "module": "CS2030S",
+  "topic": "Generics",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the inferred type T?\n\n<T> T choose(T a, T b)\n\nchoose(1, 1.5)",
+  "options": [
+    "Integer",
+    "Double",
+    "Number",
+    "Object"
+  ],
+  "answer": "Number",
+  "explanation": "The compiler chooses the nearest common supertype of Integer and Double.",
+  "points": 15
+},
+
+{
+  "id": 72,
+  "module": "CS2030S",
+  "topic": "Wildcards",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which declaration allows reading Number values safely?",
+  "options": [
+    "List<? super Number>",
+    "List<? extends Number>",
+    "List<Object>",
+    "List<?>"
+  ],
+  "answer": "List<? extends Number>",
+  "explanation": "Upper bounded wildcards guarantee values are at least Numbers.",
+  "points": 15
+},
+
+{
+  "id": 73,
+  "module": "CS2030S",
+  "topic": "Type Erasure",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Why does the following fail to compile?\n\nvoid foo(List<Integer> x)\nvoid foo(List<String> x)",
+  "options": [
+    "Lists are immutable",
+    "Generics are invariant",
+    "Type erasure produces identical signatures",
+    "Method overloading is disabled"
+  ],
+  "answer": "Type erasure produces identical signatures",
+  "explanation": "Both methods erase to foo(List).",
+  "points": 15
+},
+
+{
+  "id": 74,
+  "module": "CS2030S",
+  "topic": "Streams",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is printed?\n\nStream.of(1,2,3)\n.filter(x -> x % 2 == 1)\n.forEach(System.out::print);",
+  "options": [
+    "12",
+    "13",
+    "23",
+    "123"
+  ],
+  "answer": "13",
+  "explanation": "Only odd numbers pass the filter.",
+  "points": 15
+},
+
+{
+  "id": 75,
+  "module": "CS2030S",
+  "topic": "Streams",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "How many times does the map function execute?\n\nStream.of(1,2,3)\n.map(x -> x * 2)\n.count();",
+  "options": [
+    "0",
+    "1",
+    "2",
+    "3"
+  ],
+  "answer": "3",
+  "explanation": "map executes once for each stream element.",
+  "points": 15
+},
+
+{
+  "id": 76,
+  "module": "CS2030S",
+  "topic": "Lambda Capture",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Why must captured local variables be effectively final?",
+  "options": [
+    "To reduce memory usage",
+    "To avoid inconsistencies between stack and heap lifetimes",
+    "To improve inheritance",
+    "To support recursion"
+  ],
+  "answer": "To avoid inconsistencies between stack and heap lifetimes",
+  "explanation": "Captured values may outlive the stack frame where they originated.",
+  "points": 15
+},
+
+{
+  "id": 77,
+  "module": "CS2030S",
+  "topic": "Functional Interfaces",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which built-in interface represents a computation that takes no input and returns a value?",
+  "options": [
+    "Consumer<T>",
+    "Predicate<T>",
+    "Supplier<T>",
+    "Function<T,R>"
+  ],
+  "answer": "Supplier<T>",
+  "explanation": "Suppliers produce values without consuming input.",
+  "points": 15
+},
+
+{
+  "id": 78,
+  "module": "CS2030S",
+  "topic": "Maybe",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the result of:\n\nMaybe.some(5)\n.map(x -> x * 2)",
+  "options": [
+    "10",
+    "Maybe.some(10)",
+    "Maybe.none()",
+    "Compilation Error"
+  ],
+  "answer": "Maybe.some(10)",
+  "explanation": "map transforms the contained value while preserving the container.",
+  "points": 15
+},
+
+{
+  "id": 79,
+  "module": "CS2030S",
+  "topic": "InfiniteList",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the purpose of iterate(seed, f)?",
+  "options": [
+    "Generate values repeatedly using f",
+    "Filter a sequence",
+    "Sort a sequence",
+    "Reduce a sequence"
+  ],
+  "answer": "Generate values repeatedly using f",
+  "explanation": "Each new value is produced from the previous value.",
+  "points": 15
+},
+
+{
+  "id": 80,
+  "module": "CS2030S",
+  "topic": "CompletableFuture",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the advantage of chaining CompletableFuture operations?",
+  "options": [
+    "Avoids asynchronous execution",
+    "Allows composition without blocking",
+    "Removes generics",
+    "Guarantees thread safety"
+  ],
+  "answer": "Allows composition without blocking",
+  "explanation": "Operations can continue when results become available without waiting synchronously.",
+  "points": 15
+},
+{
+  "id": 81,
+  "module": "CS2030S",
+  "topic": "Compile-Time vs Runtime Type",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Given:\n\nAnimal a = new Dog();\nDog d = new Dog();\n\nWhich statement is true?",
+  "options": [
+    "a and d have the same compile-time type",
+    "a and d have different runtime types",
+    "a and d have the same runtime type",
+    "a cannot call overridden methods"
+  ],
+  "answer": "a and d have the same runtime type",
+  "explanation": "Both references point to Dog objects.",
+  "points": 15
+},
+
+{
+  "id": 82,
+  "module": "CS2030S",
+  "topic": "PECS",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which operation is safe on List<? super Integer>?",
+  "options": [
+    "Read Integer values",
+    "Add Integer values",
+    "Read Double values",
+    "Read Number values"
+  ],
+  "answer": "Add Integer values",
+  "explanation": "Consumer Super allows safe insertion of Integer objects.",
+  "points": 15
+},
+
+{
+  "id": 83,
+  "module": "CS2030S",
+  "topic": "Wildcards",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the compile-time type of an element retrieved from List<?>?",
+  "options": [
+    "Object",
+    "Number",
+    "String",
+    "Unknown"
+  ],
+  "answer": "Object",
+  "explanation": "The only guaranteed type is Object.",
+  "points": 15
+},
+
+{
+  "id": 84,
+  "module": "CS2030S",
+  "topic": "Streams",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is printed?\n\nStream.of(1,2,3)\n.map(x -> x + 1)\n.filter(x -> x % 2 == 0)\n.forEach(System.out::print);",
+  "options": [
+    "24",
+    "2",
+    "234",
+    "13"
+  ],
+  "answer": "24",
+  "explanation": "The stream becomes 2,3,4 then filters to 2 and 4.",
+  "points": 15
+},
+
+{
+  "id": 85,
+  "module": "CS2030S",
+  "topic": "Streams",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the result?\n\nStream.of(\"a\",\"b\")\n.reduce(\"\", String::concat)",
+  "options": [
+    "\"ab\"",
+    "\"a b\"",
+    "\"ba\"",
+    "\"\""
+  ],
+  "answer": "\"ab\"",
+  "explanation": "reduce concatenates all elements in order.",
+  "points": 15
+},
+
+{
+  "id": 86,
+  "module": "CS2030S",
+  "topic": "Maybe",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the result of Maybe.none().flatMap(x -> Maybe.some(x))?",
+  "options": [
+    "Maybe.some(null)",
+    "Maybe.none()",
+    "Exception",
+    "null"
+  ],
+  "answer": "Maybe.none()",
+  "explanation": "flatMap preserves emptiness when no value exists.",
+  "points": 15
+},
+
+{
+  "id": 87,
+  "module": "CS2030S",
+  "topic": "Maybe",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which operation avoids nested Maybe values?",
+  "options": [
+    "filter",
+    "reduce",
+    "flatMap",
+    "sorted"
+  ],
+  "answer": "flatMap",
+  "explanation": "flatMap unwraps nested containers automatically.",
+  "points": 15
+},
+
+{
+  "id": 88,
+  "module": "CS2030S",
+  "topic": "Lazy",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "When should a Lazy<T> supplier execute?",
+  "options": [
+    "At construction",
+    "At compile time",
+    "On first demand",
+    "On every demand"
+  ],
+  "answer": "On first demand",
+  "explanation": "Lazy evaluation delays work until required.",
+  "points": 15
+},
+
+{
+  "id": 89,
+  "module": "CS2030S",
+  "topic": "InfiniteList",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Why can InfiniteList.map() remain lazy?",
+  "options": [
+    "It computes all values immediately",
+    "It transforms values only when requested",
+    "It uses recursion",
+    "It uses arrays"
+  ],
+  "answer": "It transforms values only when requested",
+  "explanation": "Mapping is deferred until elements are accessed.",
+  "points": 15
+},
+
+{
+  "id": 90,
+  "module": "CS2030S",
+  "topic": "CompletableFuture",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which method is typically used to continue computation after completion?",
+  "options": [
+    "thenApply",
+    "waitFor",
+    "joinThread",
+    "continueWith"
+  ],
+  "answer": "thenApply",
+  "explanation": "thenApply chains a transformation after completion.",
+  "points": 15
+},
+{
+  "id": 91,
+  "module": "CS2030S",
+  "topic": "Generics",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which statement about Java generics is true?",
+  "options": [
+    "Generics support primitive types directly",
+    "Generics are covariant by default",
+    "Generics provide compile-time type safety",
+    "Generic information is fully preserved at runtime"
+  ],
+  "answer": "Generics provide compile-time type safety",
+  "explanation": "Generics primarily prevent type errors during compilation.",
+  "points": 15
+},
+
+{
+  "id": 92,
+  "module": "CS2030S",
+  "topic": "Type Erasure",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "After compilation, what happens to generic type parameters?",
+  "options": [
+    "They become runtime metadata",
+    "They are erased",
+    "They become interfaces",
+    "They become annotations"
+  ],
+  "answer": "They are erased",
+  "explanation": "Java implements generics through type erasure.",
+  "points": 15
+},
+
+{
+  "id": 93,
+  "module": "CS2030S",
+  "topic": "Streams",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is printed?\n\nStream.of(1,2,3,4)\n.filter(x -> x > 2)\n.map(x -> x * 2)\n.forEach(System.out::print);",
+  "options": [
+    "68",
+    "2468",
+    "34",
+    "46"
+  ],
+  "answer": "68",
+  "explanation": "The filter keeps 3 and 4, which become 6 and 8.",
+  "points": 15
+},
+
+{
+  "id": 94,
+  "module": "CS2030S",
+  "topic": "Lambda",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which lambda implements Predicate<String>?",
+  "options": [
+    "s -> s.length()",
+    "s -> s.isEmpty()",
+    "() -> true",
+    "s -> System.out.println(s)"
+  ],
+  "answer": "s -> s.isEmpty()",
+  "explanation": "Predicate<T> accepts T and returns a boolean.",
+  "points": 15
+},
+
+{
+  "id": 95,
+  "module": "CS2030S",
+  "topic": "Functional Interfaces",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which interface represents consuming a value without returning one?",
+  "options": [
+    "Supplier<T>",
+    "Function<T,R>",
+    "Consumer<T>",
+    "Predicate<T>"
+  ],
+  "answer": "Consumer<T>",
+  "explanation": "Consumer accepts input and returns void.",
+  "points": 15
+},
+
+{
+  "id": 96,
+  "module": "CS2030S",
+  "topic": "Maybe",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the result of Maybe.some(10).map(x -> x / 2)?",
+  "options": [
+    "5",
+    "Maybe.some(5)",
+    "Maybe.none()",
+    "Compilation Error"
+  ],
+  "answer": "Maybe.some(5)",
+  "explanation": "map transforms the value while preserving the container.",
+  "points": 15
+},
+
+{
+  "id": 97,
+  "module": "CS2030S",
+  "topic": "Lazy",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What benefit does memoization provide in Lazy<T>?",
+  "options": [
+    "Faster compilation",
+    "Avoids repeated computation",
+    "Improves inheritance",
+    "Removes generics"
+  ],
+  "answer": "Avoids repeated computation",
+  "explanation": "Once computed, the value is cached and reused.",
+  "points": 15
+},
+
+{
+  "id": 98,
+  "module": "CS2030S",
+  "topic": "InfiniteList",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which operation is most likely to terminate on an InfiniteList?",
+  "options": [
+    "toList()",
+    "count()",
+    "limit(5)",
+    "reduce()"
+  ],
+  "answer": "limit(5)",
+  "explanation": "limit converts an infinite sequence into a finite one.",
+  "points": 15
+},
+
+{
+  "id": 99,
+  "module": "CS2030S",
+  "topic": "CompletableFuture",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is a major advantage of CompletableFuture over blocking calls?",
+  "options": [
+    "Uses less memory",
+    "Supports inheritance",
+    "Allows asynchronous composition",
+    "Removes exceptions"
+  ],
+  "answer": "Allows asynchronous composition",
+  "explanation": "Tasks can be chained without waiting synchronously.",
+  "points": 15
+},
+
+{
+  "id": 100,
+  "module": "CS2030S",
+  "topic": "CS2030S Mixed Concepts",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which concept is most closely associated with composing computations while avoiding null checks and nested containers?",
+  "options": [
+    "Inheritance",
+    "flatMap",
+    "Arrays",
+    "Method Overloading"
+  ],
+  "answer": "flatMap",
+  "explanation": "flatMap is central to compositional programming patterns taught in CS2030S.",
+  "points": 15
+},
+{
+  "id": 101,
+  "module": "CS2040S",
+  "topic": "Big O",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "What is the time complexity of accessing an element in an array by index?",
+  "options": [
+    "O(1)",
+    "O(log n)",
+    "O(n)",
+    "O(n log n)"
+  ],
+  "answer": "O(1)",
+  "explanation": "Array elements are stored contiguously and can be accessed directly.",
+  "points": 5
+},
+
+{
+  "id": 102,
+  "module": "CS2040S",
+  "topic": "Big O",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "What is the worst-case time complexity of linear search?",
+  "options": [
+    "O(1)",
+    "O(log n)",
+    "O(n)",
+    "O(n²)"
+  ],
+  "answer": "O(n)",
+  "explanation": "The entire array may need to be scanned.",
+  "points": 5
+},
+
+{
+  "id": 103,
+  "module": "CS2040S",
+  "topic": "Big O",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "Which complexity grows fastest as n becomes very large?",
+  "options": [
+    "O(log n)",
+    "O(n)",
+    "O(n log n)",
+    "O(n²)"
+  ],
+  "answer": "O(n²)",
+  "explanation": "Quadratic growth dominates the others for large n.",
+  "points": 5
+},
+
+{
+  "id": 104,
+  "module": "CS2040S",
+  "topic": "Big O",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "What is the time complexity of binary search on a sorted array?",
+  "options": [
+    "O(1)",
+    "O(log n)",
+    "O(n)",
+    "O(n²)"
+  ],
+  "answer": "O(log n)",
+  "explanation": "The search space is halved each iteration.",
+  "points": 5
+},
+
+{
+  "id": 105,
+  "module": "CS2040S",
+  "topic": "Big O",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "What is the complexity of a single loop running n times?",
+  "options": [
+    "O(1)",
+    "O(log n)",
+    "O(n)",
+    "O(n²)"
+  ],
+  "answer": "O(n)",
+  "explanation": "Each iteration contributes constant work.",
+  "points": 5
+},
+
+{
+  "id": 106,
+  "module": "CS2040S",
+  "topic": "Big O",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "What is the complexity of two consecutive loops each running n times?",
+  "options": [
+    "O(n)",
+    "O(n²)",
+    "O(log n)",
+    "O(n log n)"
+  ],
+  "answer": "O(n)",
+  "explanation": "The loops add rather than multiply.",
+  "points": 5
+},
+
+{
+  "id": 107,
+  "module": "CS2040S",
+  "topic": "Big O",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "What is the complexity of a nested loop where both loops run n times?",
+  "options": [
+    "O(n)",
+    "O(log n)",
+    "O(n²)",
+    "O(n log n)"
+  ],
+  "answer": "O(n²)",
+  "explanation": "The total number of operations is n × n.",
+  "points": 5
+},
+
+{
+  "id": 108,
+  "module": "CS2040S",
+  "topic": "Big O",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "Which notation describes an upper bound on running time?",
+  "options": [
+    "Ω",
+    "Θ",
+    "O",
+    "Δ"
+  ],
+  "answer": "O",
+  "explanation": "Big-O provides an asymptotic upper bound.",
+  "points": 5
+},
+
+{
+  "id": 109,
+  "module": "CS2040S",
+  "topic": "Big O",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "Which notation represents a tight asymptotic bound?",
+  "options": [
+    "O",
+    "Ω",
+    "Θ",
+    "∞"
+  ],
+  "answer": "Θ",
+  "explanation": "Theta bounds both above and below.",
+  "points": 5
+},
+
+{
+  "id": 110,
+  "module": "CS2040S",
+  "topic": "Big O",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "What is the complexity of inserting at the end of a dynamic array on average?",
+  "options": [
+    "O(1)",
+    "O(log n)",
+    "O(n)",
+    "O(n²)"
+  ],
+  "answer": "O(1)",
+  "explanation": "Dynamic arrays provide amortized constant-time append.",
+  "points": 5
+},
+{
+  "id": 111,
+  "module": "CS2040S",
+  "topic": "Amortized Analysis",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "What does amortized analysis measure?",
+  "options": [
+    "Worst-case cost of a single operation",
+    "Average cost over a sequence of operations",
+    "Best-case cost",
+    "Memory usage"
+  ],
+  "answer": "Average cost over a sequence of operations",
+  "explanation": "Amortized analysis spreads expensive operations across many cheap ones.",
+  "points": 5
+},
+
+{
+  "id": 112,
+  "module": "CS2040S",
+  "topic": "Dynamic Arrays",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "Why is appending to a dynamic array O(1) amortized?",
+  "options": [
+    "Resizing never occurs",
+    "The array is always full",
+    "Occasional expensive resizes are spread across many insertions",
+    "The JVM optimizes it"
+  ],
+  "answer": "Occasional expensive resizes are spread across many insertions",
+  "explanation": "Most insertions are constant-time operations.",
+  "points": 5
+},
+
+{
+  "id": 113,
+  "module": "CS2040S",
+  "topic": "Recursion",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "What is the base case in recursion?",
+  "options": [
+    "The first recursive call",
+    "The condition that stops recursion",
+    "The largest input",
+    "The recursive formula"
+  ],
+  "answer": "The condition that stops recursion",
+  "explanation": "Without a base case, recursion may never terminate.",
+  "points": 5
+},
+
+{
+  "id": 114,
+  "module": "CS2040S",
+  "topic": "Recursion",
+  "scope": "Midterm",
+  "difficulty": "Easy",
+  "question": "What is the time complexity of:\n\nT(n) = T(n-1) + O(1)?",
+  "options": [
+    "O(log n)",
+    "O(n)",
+    "O(n log n)",
+    "O(n²)"
+  ],
+  "answer": "O(n)",
+  "explanation": "The recurrence expands into n constant-time operations.",
+  "points": 5
+},
+
+{
+  "id": 115,
+  "module": "CS2040S",
+  "topic": "Merge Sort",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the worst-case time complexity of Merge Sort?",
+  "options": [
+    "O(n)",
+    "O(log n)",
+    "O(n log n)",
+    "O(n²)"
+  ],
+  "answer": "O(n log n)",
+  "explanation": "The array is repeatedly divided and merged.",
+  "points": 10
+},
+
+{
+  "id": 116,
+  "module": "CS2040S",
+  "topic": "Merge Sort",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is a disadvantage of Merge Sort?",
+  "options": [
+    "Unstable sorting",
+    "Requires extra memory",
+    "Worst-case O(n²)",
+    "Cannot sort integers"
+  ],
+  "answer": "Requires extra memory",
+  "explanation": "Merge Sort typically requires O(n) auxiliary space.",
+  "points": 10
+},
+
+{
+  "id": 117,
+  "module": "CS2040S",
+  "topic": "Quick Sort",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the worst-case time complexity of Quick Sort?",
+  "options": [
+    "O(log n)",
+    "O(n)",
+    "O(n log n)",
+    "O(n²)"
+  ],
+  "answer": "O(n²)",
+  "explanation": "Bad pivot choices can lead to highly unbalanced partitions.",
+  "points": 10
+},
+
+{
+  "id": 118,
+  "module": "CS2040S",
+  "topic": "Quick Sort",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the average-case time complexity of Quick Sort?",
+  "options": [
+    "O(log n)",
+    "O(n)",
+    "O(n log n)",
+    "O(n²)"
+  ],
+  "answer": "O(n log n)",
+  "explanation": "Balanced partitions lead to logarithmic recursion depth.",
+  "points": 10
+},
+
+{
+  "id": 119,
+  "module": "CS2040S",
+  "topic": "Binary Search",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What condition must hold before binary search can be used?",
+  "options": [
+    "The array must be sorted",
+    "The array must contain distinct elements",
+    "The array must be small",
+    "The array must contain integers only"
+  ],
+  "answer": "The array must be sorted",
+  "explanation": "Binary search relies on ordering to eliminate half the search space.",
+  "points": 10
+},
+
+{
+  "id": 120,
+  "module": "CS2040S",
+  "topic": "Binary Search",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "How many elements remain after one iteration of binary search on an array of size n?",
+  "options": [
+    "n - 1",
+    "n / 2",
+    "log n",
+    "1"
+  ],
+  "answer": "n / 2",
+  "explanation": "Each iteration discards approximately half of the remaining elements.",
+  "points": 10
+},
+{
+  "id": 121,
+  "module": "CS2040S",
+  "topic": "Binary Search Tree",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What property must hold for every node in a Binary Search Tree?",
+  "options": [
+    "Left subtree values are smaller and right subtree values are larger",
+    "All nodes have two children",
+    "The tree is balanced",
+    "The root is the smallest element"
+  ],
+  "answer": "Left subtree values are smaller and right subtree values are larger",
+  "explanation": "This ordering property defines a BST.",
+  "points": 10
+},
+
+{
+  "id": 122,
+  "module": "CS2040S",
+  "topic": "Binary Search Tree",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the worst-case search complexity of a BST?",
+  "options": [
+    "O(1)",
+    "O(log n)",
+    "O(n)",
+    "O(n log n)"
+  ],
+  "answer": "O(n)",
+  "explanation": "A skewed BST behaves like a linked list.",
+  "points": 10
+},
+
+{
+  "id": 123,
+  "module": "CS2040S",
+  "topic": "BST Traversal",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "Which traversal of a BST outputs values in sorted order?",
+  "options": [
+    "Preorder",
+    "Postorder",
+    "Level Order",
+    "Inorder"
+  ],
+  "answer": "Inorder",
+  "explanation": "Inorder traversal visits nodes in ascending order.",
+  "points": 10
+},
+
+{
+  "id": 124,
+  "module": "CS2040S",
+  "topic": "BST",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "Which node replaces a deleted BST node with two children most commonly?",
+  "options": [
+    "Root",
+    "Random child",
+    "Inorder predecessor or successor",
+    "Largest leaf"
+  ],
+  "answer": "Inorder predecessor or successor",
+  "explanation": "This preserves BST ordering.",
+  "points": 10
+},
+
+{
+  "id": 125,
+  "module": "CS2040S",
+  "topic": "AVL Trees",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the main purpose of an AVL Tree?",
+  "options": [
+    "Reduce memory usage",
+    "Maintain balance",
+    "Improve hashing",
+    "Store duplicates"
+  ],
+  "answer": "Maintain balance",
+  "explanation": "AVL trees keep height logarithmic.",
+  "points": 10
+},
+
+{
+  "id": 126,
+  "module": "CS2040S",
+  "topic": "AVL Trees",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the maximum allowed balance factor in an AVL tree?",
+  "options": [
+    "0",
+    "1",
+    "2",
+    "3"
+  ],
+  "answer": "1",
+  "explanation": "Balance factor must be between -1 and +1.",
+  "points": 10
+},
+
+{
+  "id": 127,
+  "module": "CS2040S",
+  "topic": "AVL Rotation",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "Which rotation fixes a Left-Left imbalance?",
+  "options": [
+    "Left Rotation",
+    "Right Rotation",
+    "Double Left Rotation",
+    "Double Right Rotation"
+  ],
+  "answer": "Right Rotation",
+  "explanation": "A right rotation restores balance for LL cases.",
+  "points": 10
+},
+
+{
+  "id": 128,
+  "module": "CS2040S",
+  "topic": "AVL Rotation",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "Which rotation sequence fixes a Left-Right imbalance?",
+  "options": [
+    "Right Rotation only",
+    "Left Rotation only",
+    "Left then Right Rotation",
+    "Right then Left Rotation"
+  ],
+  "answer": "Left then Right Rotation",
+  "explanation": "LR imbalance requires a double rotation.",
+  "points": 10
+},
+
+{
+  "id": 129,
+  "module": "CS2040S",
+  "topic": "Heaps",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What property does a max-heap satisfy?",
+  "options": [
+    "Every node is smaller than its children",
+    "Every node is larger than its children",
+    "The tree is balanced",
+    "The tree is sorted"
+  ],
+  "answer": "Every node is larger than its children",
+  "explanation": "The maximum element is always at the root.",
+  "points": 10
+},
+
+{
+  "id": 130,
+  "module": "CS2040S",
+  "topic": "Heaps",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "Where is the maximum element stored in a max-heap?",
+  "options": [
+    "Any leaf",
+    "Root",
+    "Last node",
+    "Middle level"
+  ],
+  "answer": "Root",
+  "explanation": "Heap order guarantees the maximum element is at the root.",
+  "points": 10
+},
+{
+  "id": 131,
+  "module": "CS2040S",
+  "topic": "Heaps",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the time complexity of inserting an element into a binary heap?",
+  "options": [
+    "O(1)",
+    "O(log n)",
+    "O(n)",
+    "O(n log n)"
+  ],
+  "answer": "O(log n)",
+  "explanation": "The element may need to bubble up through the height of the heap.",
+  "points": 10
+},
+
+{
+  "id": 132,
+  "module": "CS2040S",
+  "topic": "Heaps",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the time complexity of removing the root from a binary heap?",
+  "options": [
+    "O(1)",
+    "O(log n)",
+    "O(n)",
+    "O(n log n)"
+  ],
+  "answer": "O(log n)",
+  "explanation": "Heapify-down may traverse the height of the heap.",
+  "points": 10
+},
+
+{
+  "id": 133,
+  "module": "CS2040S",
+  "topic": "Priority Queue",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "Which data structure is commonly used to implement a priority queue efficiently?",
+  "options": [
+    "Array",
+    "Linked List",
+    "Heap",
+    "Stack"
+  ],
+  "answer": "Heap",
+  "explanation": "Heaps provide efficient insertion and extraction of priorities.",
+  "points": 10
+},
+
+{
+  "id": 134,
+  "module": "CS2040S",
+  "topic": "Heapify",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the time complexity of building a heap from an unsorted array of n elements?",
+  "options": [
+    "O(log n)",
+    "O(n)",
+    "O(n log n)",
+    "O(n²)"
+  ],
+  "answer": "O(n)",
+  "explanation": "Bottom-up heap construction runs in linear time.",
+  "points": 10
+},
+
+{
+  "id": 135,
+  "module": "CS2040S",
+  "topic": "Hash Tables",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the average-case lookup complexity of a hash table?",
+  "options": [
+    "O(1)",
+    "O(log n)",
+    "O(n)",
+    "O(n²)"
+  ],
+  "answer": "O(1)",
+  "explanation": "Assuming a good hash function and low load factor.",
+  "points": 10
+},
+
+{
+  "id": 136,
+  "module": "CS2040S",
+  "topic": "Hash Tables",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is a collision in a hash table?",
+  "options": [
+    "Two keys hashing to the same index",
+    "A missing key",
+    "A duplicate array element",
+    "An invalid pointer"
+  ],
+  "answer": "Two keys hashing to the same index",
+  "explanation": "Collisions occur when multiple keys map to the same bucket.",
+  "points": 10
+},
+
+{
+  "id": 137,
+  "module": "CS2040S",
+  "topic": "Hash Tables",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "Which technique resolves collisions by storing multiple elements in the same bucket?",
+  "options": [
+    "Rehashing",
+    "Chaining",
+    "Heapify",
+    "Balancing"
+  ],
+  "answer": "Chaining",
+  "explanation": "Chaining typically uses linked lists or similar structures.",
+  "points": 10
+},
+
+{
+  "id": 138,
+  "module": "CS2040S",
+  "topic": "Hash Tables",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the load factor of a hash table?",
+  "options": [
+    "Number of buckets",
+    "Table capacity",
+    "Elements divided by buckets",
+    "Maximum key value"
+  ],
+  "answer": "Elements divided by buckets",
+  "explanation": "Load factor measures how full the table is.",
+  "points": 10
+},
+
+{
+  "id": 139,
+  "module": "CS2040S",
+  "topic": "Open Addressing",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "Which collision resolution strategy stores all elements directly inside the hash table array?",
+  "options": [
+    "Chaining",
+    "Open Addressing",
+    "Heapification",
+    "Union Find"
+  ],
+  "answer": "Open Addressing",
+  "explanation": "Open addressing probes alternative positions within the table.",
+  "points": 10
+},
+
+{
+  "id": 140,
+  "module": "CS2040S",
+  "topic": "Hash Tables",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What usually happens when the load factor becomes too high?",
+  "options": [
+    "The table is sorted",
+    "The table is rehashed into a larger table",
+    "The table becomes a heap",
+    "Elements are deleted automatically"
+  ],
+  "answer": "The table is rehashed into a larger table",
+  "explanation": "Rehashing reduces collisions and restores performance.",
+  "points": 10
+},
+{
+  "id": 141,
+  "module": "CS2040S",
+  "topic": "Union Find",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What operation determines whether two elements belong to the same set?",
+  "options": [
+    "union",
+    "find",
+    "merge",
+    "compress"
+  ],
+  "answer": "find",
+  "explanation": "find returns the representative of a set.",
+  "points": 10
+},
+
+{
+  "id": 142,
+  "module": "CS2040S",
+  "topic": "Union Find",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What is the purpose of the union operation?",
+  "options": [
+    "Split a set",
+    "Merge two sets",
+    "Sort elements",
+    "Delete a set"
+  ],
+  "answer": "Merge two sets",
+  "explanation": "union combines two disjoint sets into one.",
+  "points": 10
+},
+
+{
+  "id": 143,
+  "module": "CS2040S",
+  "topic": "Union Find",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "What optimization flattens trees during find operations?",
+  "options": [
+    "Heapify",
+    "Path Compression",
+    "Rotation",
+    "Rehashing"
+  ],
+  "answer": "Path Compression",
+  "explanation": "Path compression makes future find operations faster.",
+  "points": 10
+},
+
+{
+  "id": 144,
+  "module": "CS2040S",
+  "topic": "Union Find",
+  "scope": "Midterm",
+  "difficulty": "Medium",
+  "question": "Which optimization attaches the smaller tree under the larger one?",
+  "options": [
+    "Path Compression",
+    "Union by Rank",
+    "Heapify",
+    "Balancing"
+  ],
+  "answer": "Union by Rank",
+  "explanation": "Union by rank keeps tree height small.",
+  "points": 10
+},
+
+{
+  "id": 145,
+  "module": "CS2040S",
+  "topic": "Graphs",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "A graph consists of:",
+  "options": [
+    "Nodes only",
+    "Edges only",
+    "Vertices and edges",
+    "Arrays and lists"
+  ],
+  "answer": "Vertices and edges",
+  "explanation": "Graphs are composed of vertices connected by edges.",
+  "points": 10
+},
+
+{
+  "id": 146,
+  "module": "CS2040S",
+  "topic": "Graphs",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "What is the degree of a vertex?",
+  "options": [
+    "The number of adjacent edges",
+    "The graph height",
+    "The shortest path length",
+    "The number of components"
+  ],
+  "answer": "The number of adjacent edges",
+  "explanation": "Degree counts edges incident on a vertex.",
+  "points": 10
+},
+
+{
+  "id": 147,
+  "module": "CS2040S",
+  "topic": "BFS",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Which data structure is primarily used by Breadth First Search?",
+  "options": [
+    "Stack",
+    "Queue",
+    "Heap",
+    "Hash Table"
+  ],
+  "answer": "Queue",
+  "explanation": "BFS explores vertices level by level using a queue.",
+  "points": 10
+},
+
+{
+  "id": 148,
+  "module": "CS2040S",
+  "topic": "DFS",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Which data structure is primarily used by Depth First Search?",
+  "options": [
+    "Queue",
+    "Stack",
+    "Heap",
+    "Array"
+  ],
+  "answer": "Stack",
+  "explanation": "DFS explores deeply before backtracking.",
+  "points": 10
+},
+
+{
+  "id": 149,
+  "module": "CS2040S",
+  "topic": "BFS",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Which algorithm finds the shortest path in an unweighted graph?",
+  "options": [
+    "DFS",
+    "BFS",
+    "Quick Sort",
+    "AVL Rotation"
+  ],
+  "answer": "BFS",
+  "explanation": "BFS discovers vertices in increasing distance order.",
+  "points": 10
+},
+
+{
+  "id": 150,
+  "module": "CS2040S",
+  "topic": "DFS",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "What is a common application of DFS?",
+  "options": [
+    "Topological Sorting",
+    "Heap Construction",
+    "Hashing",
+    "Binary Search"
+  ],
+  "answer": "Topological Sorting",
+  "explanation": "DFS is often used to generate topological orderings.",
+  "points": 10
+},
+{
+  "id": 151,
+  "module": "CS2040S",
+  "topic": "Graph Representation",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Which graph representation is generally more space efficient for sparse graphs?",
+  "options": [
+    "Adjacency Matrix",
+    "Adjacency List",
+    "Heap",
+    "Union Find"
+  ],
+  "answer": "Adjacency List",
+  "explanation": "Adjacency lists store only existing edges.",
+  "points": 10
+},
+
+{
+  "id": 152,
+  "module": "CS2040S",
+  "topic": "Graph Representation",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "What is the space complexity of an adjacency matrix for a graph with V vertices?",
+  "options": [
+    "O(V)",
+    "O(E)",
+    "O(V²)",
+    "O(V + E)"
+  ],
+  "answer": "O(V²)",
+  "explanation": "A matrix stores every possible edge.",
+  "points": 10
+},
+
+{
+  "id": 153,
+  "module": "CS2040S",
+  "topic": "BFS",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "What is the time complexity of BFS using an adjacency list?",
+  "options": [
+    "O(V)",
+    "O(E)",
+    "O(V + E)",
+    "O(V²)"
+  ],
+  "answer": "O(V + E)",
+  "explanation": "Each vertex and edge is processed at most once.",
+  "points": 10
+},
+
+{
+  "id": 154,
+  "module": "CS2040S",
+  "topic": "DFS",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "What is the time complexity of DFS using an adjacency list?",
+  "options": [
+    "O(V)",
+    "O(E)",
+    "O(V + E)",
+    "O(V²)"
+  ],
+  "answer": "O(V + E)",
+  "explanation": "Each vertex and edge is explored at most once.",
+  "points": 10
+},
+
+{
+  "id": 155,
+  "module": "CS2040S",
+  "topic": "Connected Components",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Which algorithm can be used to count connected components in an undirected graph?",
+  "options": [
+    "Merge Sort",
+    "Binary Search",
+    "BFS or DFS",
+    "Quick Sort"
+  ],
+  "answer": "BFS or DFS",
+  "explanation": "Repeated traversals identify all components.",
+  "points": 10
+},
+
+{
+  "id": 156,
+  "module": "CS2040S",
+  "topic": "Topological Sort",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Topological sorting is only defined for:",
+  "options": [
+    "Undirected graphs",
+    "Trees",
+    "Directed Acyclic Graphs",
+    "Complete graphs"
+  ],
+  "answer": "Directed Acyclic Graphs",
+  "explanation": "Cycles make a valid topological ordering impossible.",
+  "points": 10
+},
+
+{
+  "id": 157,
+  "module": "CS2040S",
+  "topic": "Topological Sort",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Which graph property prevents a topological ordering?",
+  "options": [
+    "Disconnected vertices",
+    "Negative edges",
+    "Cycles",
+    "Multiple components"
+  ],
+  "answer": "Cycles",
+  "explanation": "A cycle creates circular dependencies.",
+  "points": 10
+},
+
+{
+  "id": 158,
+  "module": "CS2040S",
+  "topic": "Weighted Graphs",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "What does the weight of an edge typically represent?",
+  "options": [
+    "Memory usage",
+    "Cost, distance, or time",
+    "Vertex degree",
+    "Tree height"
+  ],
+  "answer": "Cost, distance, or time",
+  "explanation": "Edge weights model quantities associated with traversal.",
+  "points": 10
+},
+
+{
+  "id": 159,
+  "module": "CS2040S",
+  "topic": "Shortest Paths",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Which algorithm is commonly used for shortest paths in graphs with non-negative weights?",
+  "options": [
+    "DFS",
+    "Dijkstra",
+    "Merge Sort",
+    "Union Find"
+  ],
+  "answer": "Dijkstra",
+  "explanation": "Dijkstra efficiently finds shortest paths with non-negative edge weights.",
+  "points": 10
+},
+
+{
+  "id": 160,
+  "module": "CS2040S",
+  "topic": "Dijkstra",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Which data structure is commonly used to optimize Dijkstra's algorithm?",
+  "options": [
+    "Queue",
+    "Stack",
+    "Priority Queue",
+    "Array Only"
+  ],
+  "answer": "Priority Queue",
+  "explanation": "The next closest vertex can be extracted efficiently.",
+  "points": 10
+},
+{
+  "id": 161,
+  "module": "CS2040S",
+  "topic": "Dijkstra",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Why does Dijkstra's algorithm fail on graphs with negative edge weights?",
+  "options": [
+    "It uses too much memory",
+    "The greedy choice may become invalid later",
+    "It cannot handle cycles",
+    "It requires a DAG"
+  ],
+  "answer": "The greedy choice may become invalid later",
+  "explanation": "Negative edges can produce shorter paths after a vertex has already been finalized.",
+  "points": 10
+},
+
+{
+  "id": 162,
+  "module": "CS2040S",
+  "topic": "Minimum Spanning Tree",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "What is a Minimum Spanning Tree (MST)?",
+  "options": [
+    "The shortest path between two vertices",
+    "A tree connecting all vertices with minimum total edge weight",
+    "A balanced tree",
+    "A directed tree"
+  ],
+  "answer": "A tree connecting all vertices with minimum total edge weight",
+  "explanation": "An MST connects every vertex while minimizing total cost.",
+  "points": 10
+},
+
+{
+  "id": 163,
+  "module": "CS2040S",
+  "topic": "Kruskal",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Which data structure is commonly paired with Kruskal's algorithm?",
+  "options": [
+    "Stack",
+    "Queue",
+    "Union Find",
+    "AVL Tree"
+  ],
+  "answer": "Union Find",
+  "explanation": "Union Find efficiently detects cycles while building the MST.",
+  "points": 10
+},
+
+{
+  "id": 164,
+  "module": "CS2040S",
+  "topic": "Kruskal",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "What is the first step of Kruskal's algorithm?",
+  "options": [
+    "Run DFS",
+    "Sort edges by weight",
+    "Build a heap",
+    "Choose a random vertex"
+  ],
+  "answer": "Sort edges by weight",
+  "explanation": "Kruskal processes edges from smallest to largest weight.",
+  "points": 10
+},
+
+{
+  "id": 165,
+  "module": "CS2040S",
+  "topic": "Prim",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Prim's algorithm grows an MST by repeatedly selecting:",
+  "options": [
+    "The largest edge",
+    "The cheapest edge connecting the tree to a new vertex",
+    "A random edge",
+    "The shortest path"
+  ],
+  "answer": "The cheapest edge connecting the tree to a new vertex",
+  "explanation": "Prim expands the current MST one vertex at a time.",
+  "points": 10
+},
+
+{
+  "id": 166,
+  "module": "CS2040S",
+  "topic": "Graphs",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "A tree with V vertices contains how many edges?",
+  "options": [
+    "V",
+    "V + 1",
+    "V - 1",
+    "2V"
+  ],
+  "answer": "V - 1",
+  "explanation": "Every connected acyclic graph has exactly V - 1 edges.",
+  "points": 10
+},
+
+{
+  "id": 167,
+  "module": "CS2040S",
+  "topic": "Cycle Detection",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Which structure is particularly useful for cycle detection in Kruskal's algorithm?",
+  "options": [
+    "Hash Map",
+    "Union Find",
+    "Queue",
+    "Stack"
+  ],
+  "answer": "Union Find",
+  "explanation": "Union Find quickly determines whether two vertices are already connected.",
+  "points": 10
+},
+
+{
+  "id": 168,
+  "module": "CS2040S",
+  "topic": "Graphs",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "What is the maximum number of edges in a simple undirected graph with n vertices?",
+  "options": [
+    "n²",
+    "n(n-1)",
+    "n(n-1)/2",
+    "2n"
+  ],
+  "answer": "n(n-1)/2",
+  "explanation": "Every pair of vertices can be connected by at most one edge.",
+  "points": 10
+},
+
+{
+  "id": 169,
+  "module": "CS2040S",
+  "topic": "Priority Queue",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "What is the time complexity of extracting the minimum element from a binary heap?",
+  "options": [
+    "O(1)",
+    "O(log n)",
+    "O(n)",
+    "O(n log n)"
+  ],
+  "answer": "O(log n)",
+  "explanation": "Heapify-down may travel the height of the heap.",
+  "points": 10
+},
+
+{
+  "id": 170,
+  "module": "CS2040S",
+  "topic": "Graphs",
+  "scope": "Final",
+  "difficulty": "Medium",
+  "question": "Which traversal explores vertices level by level?",
+  "options": [
+    "DFS",
+    "BFS",
+    "Dijkstra",
+    "Prim"
+  ],
+  "answer": "BFS",
+  "explanation": "Breadth-First Search visits all neighbors before moving deeper.",
+  "points": 10
+},
+{
+  "id": 171,
+  "module": "CS2040S",
+  "topic": "Dynamic Programming",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the key idea behind Dynamic Programming?",
+  "options": [
+    "Using recursion only",
+    "Solving overlapping subproblems once and reusing results",
+    "Using heaps",
+    "Using graphs"
+  ],
+  "answer": "Solving overlapping subproblems once and reusing results",
+  "explanation": "DP avoids repeated computation through memoization or tabulation.",
+  "points": 15
+},
+
+{
+  "id": 172,
+  "module": "CS2040S",
+  "topic": "Dynamic Programming",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which property is required for Dynamic Programming?",
+  "options": [
+    "Balanced trees",
+    "Optimal substructure",
+    "Hashing",
+    "Sorting"
+  ],
+  "answer": "Optimal substructure",
+  "explanation": "Optimal solutions must be constructible from optimal subproblem solutions.",
+  "points": 15
+},
+
+{
+  "id": 173,
+  "module": "CS2040S",
+  "topic": "Memoization",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Memoization is typically associated with:",
+  "options": [
+    "Top-down DP",
+    "Bottom-up DP",
+    "BFS",
+    "DFS"
+  ],
+  "answer": "Top-down DP",
+  "explanation": "Memoization stores recursive results as they are computed.",
+  "points": 15
+},
+
+{
+  "id": 174,
+  "module": "CS2040S",
+  "topic": "Tabulation",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Tabulation is typically associated with:",
+  "options": [
+    "Top-down recursion",
+    "Bottom-up computation",
+    "Heap operations",
+    "Hashing"
+  ],
+  "answer": "Bottom-up computation",
+  "explanation": "Subproblems are solved iteratively from smallest to largest.",
+  "points": 15
+},
+
+{
+  "id": 175,
+  "module": "CS2040S",
+  "topic": "Greedy Algorithms",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the defining characteristic of a greedy algorithm?",
+  "options": [
+    "Uses recursion",
+    "Makes the locally optimal choice at each step",
+    "Uses dynamic programming",
+    "Always finds the shortest path"
+  ],
+  "answer": "Makes the locally optimal choice at each step",
+  "explanation": "Greedy algorithms build solutions incrementally.",
+  "points": 15
+},
+
+{
+  "id": 176,
+  "module": "CS2040S",
+  "topic": "Greedy Algorithms",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which of the following algorithms is greedy?",
+  "options": [
+    "Merge Sort",
+    "Dijkstra",
+    "Binary Search",
+    "DFS"
+  ],
+  "answer": "Dijkstra",
+  "explanation": "Dijkstra repeatedly chooses the closest unvisited vertex.",
+  "points": 15
+},
+
+{
+  "id": 177,
+  "module": "CS2040S",
+  "topic": "Complexity Analysis",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which grows faster for large n?",
+  "options": [
+    "O(n log n)",
+    "O(n)",
+    "O(log n)",
+    "O(1)"
+  ],
+  "answer": "O(n log n)",
+  "explanation": "The logarithmic factor causes faster growth than linear time.",
+  "points": 15
+},
+
+{
+  "id": 178,
+  "module": "CS2040S",
+  "topic": "Complexity Analysis",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the complexity of Merge Sort?",
+  "options": [
+    "O(n²)",
+    "O(log n)",
+    "O(n log n)",
+    "O(n)"
+  ],
+  "answer": "O(n log n)",
+  "explanation": "Merge Sort recursively divides and merges.",
+  "points": 15
+},
+
+{
+  "id": 179,
+  "module": "CS2040S",
+  "topic": "Shortest Paths",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which shortest-path algorithm can handle negative edge weights (assuming no negative cycles)?",
+  "options": [
+    "BFS",
+    "Dijkstra",
+    "Bellman-Ford",
+    "Prim"
+  ],
+  "answer": "Bellman-Ford",
+  "explanation": "Bellman-Ford relaxes edges repeatedly and supports negative weights.",
+  "points": 15
+},
+
+{
+  "id": 180,
+  "module": "CS2040S",
+  "topic": "Graphs",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is a Directed Acyclic Graph (DAG)?",
+  "options": [
+    "A graph with weighted edges",
+    "A graph with no cycles and directed edges",
+    "A graph with no vertices",
+    "A complete graph"
+  ],
+  "answer": "A graph with no cycles and directed edges",
+  "explanation": "DAGs are commonly used for dependency ordering problems.",
+  "points": 15
+},
+{
+  "id": 181,
+  "module": "CS2040S",
+  "topic": "Complexity Analysis",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the time complexity of the following code?\n\nfor(int i=1;i<n;i*=2){\n  System.out.println(i);\n}",
+  "options": [
+    "O(1)",
+    "O(log n)",
+    "O(n)",
+    "O(n log n)"
+  ],
+  "answer": "O(log n)",
+  "explanation": "The loop variable doubles each iteration.",
+  "points": 15
+},
+
+{
+  "id": 182,
+  "module": "CS2040S",
+  "topic": "Complexity Analysis",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the complexity of:\n\nfor(int i=0;i<n;i++)\n  for(int j=1;j<n;j*=2)\n    work();",
+  "options": [
+    "O(log n)",
+    "O(n)",
+    "O(n log n)",
+    "O(n²)"
+  ],
+  "answer": "O(n log n)",
+  "explanation": "The outer loop runs n times and the inner loop runs log n times.",
+  "points": 15
+},
+
+{
+  "id": 183,
+  "module": "CS2040S",
+  "topic": "BFS",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "In an unweighted graph, BFS guarantees finding:",
+  "options": [
+    "The MST",
+    "The shortest path in terms of number of edges",
+    "The minimum weighted path",
+    "A topological ordering"
+  ],
+  "answer": "The shortest path in terms of number of edges",
+  "explanation": "BFS explores vertices level by level.",
+  "points": 15
+},
+
+{
+  "id": 184,
+  "module": "CS2040S",
+  "topic": "DFS",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which graph property can be detected using DFS?",
+  "options": [
+    "Cycles",
+    "Heap order",
+    "Hash collisions",
+    "Array bounds"
+  ],
+  "answer": "Cycles",
+  "explanation": "DFS is commonly used for cycle detection.",
+  "points": 15
+},
+
+{
+  "id": 185,
+  "module": "CS2040S",
+  "topic": "Dijkstra",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "After a vertex is removed from Dijkstra's priority queue, what is guaranteed?",
+  "options": [
+    "Its shortest distance is finalized",
+    "All neighbors are visited",
+    "The graph is connected",
+    "The MST is complete"
+  ],
+  "answer": "Its shortest distance is finalized",
+  "explanation": "This property holds when all edge weights are non-negative.",
+  "points": 15
+},
+
+{
+  "id": 186,
+  "module": "CS2040S",
+  "topic": "Minimum Spanning Tree",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "How many edges does an MST of a connected graph with V vertices contain?",
+  "options": [
+    "V",
+    "V + 1",
+    "V - 1",
+    "E - 1"
+  ],
+  "answer": "V - 1",
+  "explanation": "Every spanning tree contains exactly V - 1 edges.",
+  "points": 15
+},
+
+{
+  "id": 187,
+  "module": "CS2040S",
+  "topic": "Kruskal",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What causes an edge to be skipped in Kruskal's algorithm?",
+  "options": [
+    "It has a large weight",
+    "It forms a cycle",
+    "It connects new vertices",
+    "It is directed"
+  ],
+  "answer": "It forms a cycle",
+  "explanation": "Kruskal only adds edges that keep the graph acyclic.",
+  "points": 15
+},
+
+{
+  "id": 188,
+  "module": "CS2040S",
+  "topic": "Union Find",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the primary purpose of path compression?",
+  "options": [
+    "Reduce memory usage",
+    "Flatten trees to speed up future finds",
+    "Sort elements",
+    "Balance heaps"
+  ],
+  "answer": "Flatten trees to speed up future finds",
+  "explanation": "Path compression makes future operations extremely efficient.",
+  "points": 15
+},
+
+{
+  "id": 189,
+  "module": "CS2040S",
+  "topic": "Dynamic Programming",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Why is the naive recursive Fibonacci algorithm inefficient?",
+  "options": [
+    "It uses too much memory only",
+    "It repeatedly solves the same subproblems",
+    "It cannot terminate",
+    "It requires sorting"
+  ],
+  "answer": "It repeatedly solves the same subproblems",
+  "explanation": "Many recursive calls recompute identical values.",
+  "points": 15
+},
+
+{
+  "id": 190,
+  "module": "CS2040S",
+  "topic": "Greedy Algorithms",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which condition must hold for a greedy algorithm to always produce an optimal solution?",
+  "options": [
+    "Greedy-choice property",
+    "Balanced tree property",
+    "Hash property",
+    "Heap property"
+  ],
+  "answer": "Greedy-choice property",
+  "explanation": "A locally optimal choice must lead to a globally optimal solution.",
+  "points": 15
+},
+{
+  "id": 191,
+  "module": "CS2040S",
+  "topic": "Complexity Analysis",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which complexity class grows slowest as n becomes very large?",
+  "options": [
+    "O(log n)",
+    "O(n)",
+    "O(n log n)",
+    "O(n²)"
+  ],
+  "answer": "O(log n)",
+  "explanation": "Logarithmic growth increases the slowest among the given options.",
+  "points": 15
+},
+
+{
+  "id": 192,
+  "module": "CS2040S",
+  "topic": "Binary Search",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the maximum number of comparisons required by binary search on 1024 elements?",
+  "options": [
+    "10",
+    "32",
+    "512",
+    "1024"
+  ],
+  "answer": "10",
+  "explanation": "log₂(1024) = 10.",
+  "points": 15
+},
+
+{
+  "id": 193,
+  "module": "CS2040S",
+  "topic": "Graphs",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "A connected graph with V vertices and V edges must contain:",
+  "options": [
+    "Exactly one cycle",
+    "No cycles",
+    "Two cycles",
+    "A self-loop"
+  ],
+  "answer": "Exactly one cycle",
+  "explanation": "A tree has V−1 edges; one extra edge creates exactly one cycle.",
+  "points": 15
+},
+
+{
+  "id": 194,
+  "module": "CS2040S",
+  "topic": "Topological Sort",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "If a directed graph has a valid topological ordering, what must be true?",
+  "options": [
+    "It is complete",
+    "It is weighted",
+    "It is acyclic",
+    "It is connected"
+  ],
+  "answer": "It is acyclic",
+  "explanation": "Only DAGs have valid topological orderings.",
+  "points": 15
+},
+
+{
+  "id": 195,
+  "module": "CS2040S",
+  "topic": "Priority Queue",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which operation is typically fastest in a binary heap?",
+  "options": [
+    "Insert",
+    "Delete Min",
+    "Peek Min",
+    "Heapify"
+  ],
+  "answer": "Peek Min",
+  "explanation": "The minimum (or maximum) element is stored at the root.",
+  "points": 15
+},
+
+{
+  "id": 196,
+  "module": "CS2040S",
+  "topic": "Minimum Spanning Tree",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which algorithm grows a spanning tree from a starting vertex?",
+  "options": [
+    "Kruskal",
+    "Prim",
+    "Bellman-Ford",
+    "DFS"
+  ],
+  "answer": "Prim",
+  "explanation": "Prim expands the MST outward from a chosen start vertex.",
+  "points": 15
+},
+
+{
+  "id": 197,
+  "module": "CS2040S",
+  "topic": "Shortest Paths",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which algorithm can detect a negative-weight cycle reachable from the source?",
+  "options": [
+    "BFS",
+    "Dijkstra",
+    "Bellman-Ford",
+    "Prim"
+  ],
+  "answer": "Bellman-Ford",
+  "explanation": "An additional relaxation pass reveals negative cycles.",
+  "points": 15
+},
+
+{
+  "id": 198,
+  "module": "CS2040S",
+  "topic": "Dynamic Programming",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "What is the main advantage of tabulation over naive recursion?",
+  "options": [
+    "Uses more recursive calls",
+    "Avoids repeated computation",
+    "Requires a heap",
+    "Uses BFS"
+  ],
+  "answer": "Avoids repeated computation",
+  "explanation": "Subproblem results are stored and reused.",
+  "points": 15
+},
+
+{
+  "id": 199,
+  "module": "CS2040S",
+  "topic": "Greedy Algorithms",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which of the following is a classic greedy algorithm?",
+  "options": [
+    "Merge Sort",
+    "Fibonacci DP",
+    "Huffman Coding",
+    "Binary Search"
+  ],
+  "answer": "Huffman Coding",
+  "explanation": "Huffman Coding repeatedly chooses locally optimal merges.",
+  "points": 15
+},
+
+{
+  "id": 200,
+  "module": "CS2040S",
+  "topic": "Mixed Concepts",
+  "scope": "Final",
+  "difficulty": "Hard",
+  "question": "Which CS2040S concept is most closely associated with efficiently maintaining disjoint sets under repeated merge and query operations?",
+  "options": [
+    "AVL Trees",
+    "Union Find",
+    "Binary Search",
+    "Merge Sort"
+  ],
+  "answer": "Union Find",
+  "explanation": "Union Find is specifically designed for dynamic connectivity problems.",
+  "points": 15
+}
+]

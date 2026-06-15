@@ -1,9 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
 import { signOut } from "firebase/auth";
-
 import { auth } from "../firebase";
 
 export default function Navbar() {
@@ -11,7 +9,6 @@ export default function Navbar() {
 
   async function handleLogout() {
     await signOut(auth);
-
     router.push("/login");
   }
 
@@ -23,26 +20,20 @@ export default function Navbar() {
       >
         NUS BattlePrep
       </div>
-
       <div className="flex items-center gap-6">
-        <button
-          onClick={() => router.push("/quiz")}
-          className="hover:text-indigo-400 transition"
-        >
-          Quiz
+        <button onClick={() => router.push("/modules")} className="hover:text-indigo-400 transition">
+          Practice
         </button>
-
-        <button
-          onClick={() => router.push("/leaderboard")}
-          className="hover:text-indigo-400 transition"
-        >
+        <button onClick={() => router.push("/battle")} className="hover:text-pink-400 transition font-semibold">
+          ⚔️ Battle
+        </button>
+        <button onClick={() => router.push("/leaderboard")} className="hover:text-indigo-400 transition">
           Leaderboard
         </button>
-
-        <button
-          onClick={handleLogout}
-          className="bg-red-600 px-4 py-2 rounded-xl hover:scale-105 transition"
-        >
+        <button onClick={() => router.push("/Profile")} className="hover:text-indigo-400 transition">
+          Profile
+        </button>
+        <button onClick={handleLogout} className="bg-red-600 px-4 py-2 rounded-xl hover:scale-105 transition">
           Logout
         </button>
       </div>

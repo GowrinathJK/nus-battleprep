@@ -68,12 +68,15 @@ export default function QuizPage() {
           ...doc.data(),
         }));
 
-      fetchedQuestions =
+            fetchedQuestions =
         fetchedQuestions.sort(
           () => Math.random() - 0.5
         );
 
-      setQuestions(fetchedQuestions);
+      const selectedQuestions =
+        fetchedQuestions.slice(0, 10);
+
+      setQuestions(selectedQuestions);
     }
 
     fetchQuestions();
