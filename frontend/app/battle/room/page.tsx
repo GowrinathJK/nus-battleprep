@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { realtimeDb, db, auth } from "../../../firebase";
 import { ref, onValue, off, runTransaction, set } from "firebase/database";
@@ -10,7 +10,7 @@ import Navbar from "../../../Components/Navbar";
 
 const QUESTION_TIME = 15;
 
-export default function BattleRoomPage() {
+ function BattleRoomContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const roomCode = searchParams.get("code") || "";
@@ -290,5 +290,18 @@ export default function BattleRoomPage() {
         </div>
       </div>
     </main>
+  );
+}
+export default function BattleRoomPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen bg-black text-white flex items-center justify-center">
+          <p>Loading...</p>
+        </main>
+      }
+    >
+      <BattleRoomContent />
+    </Suspense>
   );
 }

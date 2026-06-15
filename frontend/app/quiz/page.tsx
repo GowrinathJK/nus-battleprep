@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
 import {
   collection,
@@ -21,7 +21,7 @@ import {
 
 import Navbar from "../../Components/Navbar";
 
-export default function QuizPage() {
+function QuizContent() {
   const router = useRouter();
 
   const searchParams = useSearchParams();
@@ -374,5 +374,12 @@ export default function QuizPage() {
         </div>
       </div>
     </main>
+  );
+}
+export default function QuizPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <QuizContent />
+    </Suspense>
   );
 }
