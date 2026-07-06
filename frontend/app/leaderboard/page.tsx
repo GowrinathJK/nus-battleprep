@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
 
 import {
   collection,
@@ -14,8 +17,17 @@ import { db } from "../../firebase";
 import Navbar from "../../Components/Navbar";
 
 export default function LeaderboardPage() {
+  const router = useRouter();
+
   const [users, setUsers] =
     useState<any[]>([]);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (!user) router.push("/login");
+    });
+    return () => unsub();
+  }, []);
 
   useEffect(() => {
     async function fetchLeaderboard() {

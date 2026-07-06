@@ -3,9 +3,18 @@
 import Navbar from "../../Components/Navbar";
 
 import { useRouter } from "next/navigation";
-
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
 export default function ModulesPage() {
   const router = useRouter();
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (!user) router.push("/login");
+    });
+    return () => unsub();
+  }, []);
 
   const modules = [
     {

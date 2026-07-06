@@ -1,11 +1,21 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 
 export default function Navbar() {
   const router = useRouter();
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setLoggedIn(!!user);
+    });
+    return () => unsub();
+  }, []);
 
   async function handleLogout() {
     await signOut(auth);
@@ -33,9 +43,11 @@ export default function Navbar() {
         <button onClick={() => router.push("/Profile")} className="hover:text-indigo-400 transition">
           Profile
         </button>
-        <button onClick={handleLogout} className="bg-red-600 px-4 py-2 rounded-xl hover:scale-105 transition">
-          Logout
-        </button>
+        {loggedIn && (
+          <button onClick={handleLogout} className="bg-red-600 px-4 py-2 rounded-xl hover:scale-105 transition">
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );

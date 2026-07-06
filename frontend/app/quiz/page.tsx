@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 
 import { db, auth } from "../../firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 import {
   useRouter,
@@ -23,6 +24,13 @@ import Navbar from "../../Components/Navbar";
 
 function QuizContent() {
   const router = useRouter();
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (!user) router.push("/login");
+    });
+    return () => unsub();
+  }, []);
 
   const searchParams = useSearchParams();
 

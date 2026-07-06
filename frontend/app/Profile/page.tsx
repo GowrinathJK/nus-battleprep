@@ -6,9 +6,8 @@ import Navbar from "../../Components/Navbar";
 
 import { auth, db } from "../../firebase";
 
-import {
-  onAuthStateChanged,
-} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 import {
   doc,
@@ -18,13 +17,14 @@ import {
 export default function ProfilePage() {
   const [userData, setUserData] =
     useState<any>(null);
+    const router = useRouter();
 
   useEffect(() => {
     const unsubscribe =
       onAuthStateChanged(
         auth,
         async (user) => {
-          if (!user) return;
+          if (!user) { router.push("/login"); return; }
 
           const docRef = doc(
             db,
