@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { realtimeDb, db, auth } from "../../../firebase";
-import { ref, onValue, off, runTransaction, set } from "firebase/database";
+import { ref, onValue, off, runTransaction, set, get } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, updateDoc, increment, addDoc, collection, getDoc } from "firebase/firestore";
 import Navbar from "../../../Components/Navbar";
@@ -164,7 +164,8 @@ const QUESTION_TIME = 15;
 
     setSelectedAnswer(option);
 
-    setShowFeedback(true);
+    // Wait for both players.
+// Host will reveal feedback later.
     setTimeLeft(0);
 
     const qIndex = roomData.currentQuestion ?? 0;
@@ -204,19 +205,30 @@ const QUESTION_TIME = 15;
 
     const qIndex = roomData.currentQuestion ?? 0;
 
-    const answers =
-        roomData.answers?.[qIndex] || {};
+    const latestRoom = await get(
+    ref(realtimeDb, `rooms/${roomCode}`)
+);
 
-   const playersAnswered =
-Object.values(answers).filter(Boolean).length;
+const latestData = latestRoom.val();
+
+const answers =
+    latestData.answers?.[qIndex] || {};
+
+const playersAnswered =
+    Object.keys(answers).length;
 
 const expectedPlayers =
     roomData.guest ? 2 : 1;
 
 if (playersAnswered < expectedPlayers)
     return;
-
+if (advancingRef.current)
+    return;
     advancingRef.current = true;
+    await set(
+    ref(realtimeDb, `rooms/${roomCode}/showFeedback`),
+    true
+);
 
     setTimeout(async () => {
 
@@ -230,37 +242,41 @@ if (playersAnswered < expectedPlayers)
 
         if (qIndex + 1 >= totalQuestions) {
 
-            await set(
-                ref(
-                    realtimeDb,
-                    `rooms/${roomCode}/status`
-                ),
-                "finished"
-            );
+    await set(
+        ref(
+            realtimeDb,
+            `rooms/${roomCode}/status`
+        ),
+        "finished"
+    );
 
-        } else {
+} else {
 
-            await set(
-    ref(
-        realtimeDb,
-        `rooms/${roomCode}/currentQuestion`
-    ),
-    qIndex + 1
-);
+    // Clear previous answers FIRST
+    await set(
+        ref(
+            realtimeDb,
+            `rooms/${roomCode}/answers/${qIndex}`
+        ),
+        null
+    );
 
-await set(
-    ref(
-        realtimeDb,
-        `rooms/${roomCode}/answers/${qIndex}`
-    ),
-    null
-);
+    // Then move to next question
+    await set(
+        ref(
+            realtimeDb,
+            `rooms/${roomCode}/currentQuestion`
+        ),
+        qIndex + 1
+    );
 
-
-        }
+}
         advancingRef.current = false;
         
-
+await set(
+        ref(realtimeDb, `rooms/${roomCode}/showFeedback`),
+        false
+    );
     },1200);
 
 }
@@ -285,6 +301,7 @@ await set(
     const oppScore = scores[oppUid] ?? 0;
     const won = myScore > oppScore;
     const draw = myScore === oppScore;
+
 
     const myDocRef = doc(db, "users", user.uid);
     const oppDocRef = doc(db, "users", oppUid);
