@@ -23,7 +23,27 @@ const QUESTION_TIME = 15;
   const [finished, setFinished] = useState(false);
   const [resultsProcessed, setResultsProcessed] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const currentQRef = useRef(0);
+  //const currentQRef = useRef(0);
+  const currentQRef = useRef<number | null>(null);
+
+  const answeredRef = useRef(false);
+  const advancingRef = useRef(false);
+  useEffect(() => {
+  if (!roomData || finished) return;
+
+  const q = roomData.currentQuestion ?? 0;
+
+ if (q !== currentQRef.current) {
+    currentQRef.current = q;
+
+    answeredRef.current = false;
+    advancingRef.current = false;
+
+    setTimeLeft(QUESTION_TIME);
+    setSelectedAnswer(null);
+    setShowFeedback(false);
+}
+}, [roomData?.currentQuestion, finished]);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
@@ -47,60 +67,205 @@ const QUESTION_TIME = 15;
 
   // reset timer when question index changes
   useEffect(() => {
-    if (!roomData || finished || showFeedback) return;
+    if (!roomData || finished) return;
     const q = roomData.currentQuestion ?? 0;
     if (q !== currentQRef.current) {
-      currentQRef.current = q;
-      setTimeLeft(QUESTION_TIME);
-      setSelectedAnswer(null);
-      setShowFeedback(false);
-    }
+
+    currentQRef.current = q;
+
+    answeredRef.current = false;
+    advancingRef.current = false;
+
+    setTimeLeft(QUESTION_TIME);
+    setSelectedAnswer(null);
+    setShowFeedback(false);
+
+}
   }, [roomData?.currentQuestion]);
 
   useEffect(() => {
-    if (finished || showFeedback) return;
-    if (timeLeft <= 0) { autoAdvance(); return; }
-    timerRef.current = setTimeout(() => setTimeLeft(t => t - 1), 1000);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [timeLeft, finished, showFeedback]);
+
+    if (finished) return;
+
+    if (showFeedback) return;
+
+    if (timeLeft <= 0) {
+        autoAdvance();
+        return;
+    }
+
+    timerRef.current = setTimeout(() => {
+        setTimeLeft((t) => t - 1);
+    }, 1000);
+
+    return () => {
+        if (timerRef.current)
+            clearTimeout(timerRef.current);
+    };
+
+}, [
+    timeLeft,
+    finished,
+    showFeedback,
+    roomData?.currentQuestion
+]);
+  useEffect(() => {
+
+    if (!roomData) return;
+
+    if (finished) return;
+
+    if (user?.uid === roomData.host) {
+    advanceQuestion();
+}
+
+}, [
+    roomData?.answers,
+    roomData?.currentQuestion,
+    finished
+]);
 
   async function autoAdvance() {
-    await advanceQuestion();
-  }
+
+    if (!roomData || !user) return;
+
+    if (answeredRef.current) return;
+
+    answeredRef.current = true;
+
+    const qIndex =
+        roomData.currentQuestion ?? 0;
+
+    await set(
+        ref(
+            realtimeDb,
+            `rooms/${roomCode}/answers/${qIndex}/${user.uid}`
+        ),
+        {
+    answered: false,
+    option: null,
+    timestamp: Date.now()
+}
+    );
+
+}
 
   async function handleAnswer(option: string) {
-    if (showFeedback || !user || !roomData) return;
-    if (timerRef.current) clearTimeout(timerRef.current);
+
+    if (!user || !roomData) return;
+
+    if (answeredRef.current) return;
+
+    answeredRef.current = true;
+
+    if (timerRef.current) {
+        clearTimeout(timerRef.current);
+    }
 
     setSelectedAnswer(option);
+
     setShowFeedback(true);
+    setTimeLeft(0);
 
     const qIndex = roomData.currentQuestion ?? 0;
+
     const question = roomData.questions[qIndex];
+
     const isCorrect = option === question.answer;
 
-    await set(ref(realtimeDb, `rooms/${roomCode}/answers/${user.uid}/${qIndex}`), option);
+    await set(
+    ref(
+        realtimeDb,
+        `rooms/${roomCode}/answers/${qIndex}/${user.uid}`
+    ),
+    {
+        answered: true,
+        option: option,
+        timestamp: Date.now()
+    }
+);
 
     if (isCorrect) {
-      await runTransaction(ref(realtimeDb, `rooms/${roomCode}/scores/${user.uid}`), (cur) => (cur || 0) + 1);
+        await runTransaction(
+            ref(realtimeDb, `rooms/${roomCode}/scores/${user.uid}`),
+            (score) => (score || 0) + 1
+        );
     }
 
-    setTimeout(() => advanceQuestion(), 1200);
-  }
+}
 
-  async function advanceQuestion() {
+ async function advanceQuestion() {
+
     if (!roomData || !user) return;
-    const qIndex = roomData.currentQuestion ?? 0;
-    const total = roomData.questions.length;
 
-    if (qIndex + 1 >= total) {
-      await set(ref(realtimeDb, `rooms/${roomCode}/status`), "finished");
-    } else {
-      if (user.uid === roomData.host) {
-        await runTransaction(ref(realtimeDb, `rooms/${roomCode}/currentQuestion`), (cur) => (cur ?? 0) + 1);
-      }
+    if (advancingRef.current) return;
+
+    if (user.uid !== roomData.host) return;
+
+    const qIndex = roomData.currentQuestion ?? 0;
+
+    const answers =
+        roomData.answers?.[qIndex] || {};
+
+   const playersAnswered =
+Object.values(answers).filter(Boolean).length;
+
+const expectedPlayers =
+    roomData.guest ? 2 : 1;
+
+if (playersAnswered < expectedPlayers)
+    return;
+
+    advancingRef.current = true;
+
+    setTimeout(async () => {
+
+    if ((roomData.currentQuestion ?? 0) !== qIndex) {
+        advancingRef.current = false;
+        return;
     }
-  }
+
+        const totalQuestions =
+            roomData.questions.length;
+
+        if (qIndex + 1 >= totalQuestions) {
+
+            await set(
+                ref(
+                    realtimeDb,
+                    `rooms/${roomCode}/status`
+                ),
+                "finished"
+            );
+
+        } else {
+
+            await set(
+    ref(
+        realtimeDb,
+        `rooms/${roomCode}/currentQuestion`
+    ),
+    qIndex + 1
+);
+
+await set(
+    ref(
+        realtimeDb,
+        `rooms/${roomCode}/answers/${qIndex}`
+    ),
+    null
+);
+
+
+        }
+        advancingRef.current = false;
+        
+
+    },1200);
+
+}
+
+
 
   useEffect(() => {
     if (!finished || resultsProcessed || !user || !roomData) return;
@@ -138,7 +303,7 @@ const QUESTION_TIME = 15;
       wins: increment(won ? 1 : 0),
       losses: increment(!won && !draw ? 1 : 0),
     });
-
+if (user.uid === hostUid) {
     await addDoc(collection(db, "matches"), {
       roomCode,
       module: roomData.module,
@@ -151,7 +316,7 @@ const QUESTION_TIME = 15;
       draw,
       playedAt: new Date().toISOString(),
     });
-
+  }
     await set(ref(realtimeDb, `rooms/${roomCode}/eloChanges/${user.uid}`), eloChange);
   }
 
