@@ -10,6 +10,7 @@ import {
   doc,
   updateDoc,
   increment,
+  getDoc
 } from "firebase/firestore";
 
 import { db, auth } from "../../firebase";
@@ -158,13 +159,25 @@ function QuizContent() {
         const today =
           new Date().toDateString();
 
-        await updateDoc(userRef, {
-          xp: increment(score * 10),
+        const userSnap = await getDoc(userRef);
+const userData = userSnap.exists() ? userSnap.data() : {};
+const yesterday = new Date(Date.now() - 86400000).toDateString();
+const lastDate = userData.lastQuizDate || "";
 
-          streak: increment(1),
+let newStreak = userData.streak ?? 0;
+if (lastDate === today) {
+  newStreak = userData.streak ?? 1;
+} else if (lastDate === yesterday) {
+  newStreak = (userData.streak ?? 0) + 1;
+} else {
+  newStreak = 1;
+}
 
-          lastQuizDate: today,
-        });
+await updateDoc(userRef, {
+  xp: increment(score * 10),
+  streak: newStreak,
+  lastQuizDate: today,
+});
       }
     }
   }
