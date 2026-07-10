@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { realtimeDb, db, auth } from "../../../firebase";
 import { ref, onValue, off, runTransaction, set, get } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, updateDoc, increment, addDoc, collection, getDoc } from "firebase/firestore";
+import { doc, updateDoc, increment, addDoc, collection, getDoc, setDoc } from "firebase/firestore";
 import Navbar from "../../../Components/Navbar";
 
 const QUESTION_TIME = 15;
@@ -173,54 +173,61 @@ function BattleRoomContent() {
     processResults();
   }, [finished, user, roomData]);
 
-  async function processResults() {
-    if (!roomData || !user) return;
-    const scores = roomData.scores || {};
-    const hostUid = roomData.host;
-    const guestUid = roomData.guest;
-    if (!hostUid || !guestUid) return;
+async function processResults() {
+  if (!roomData || !user) return;
+  const scores = roomData.scores || {};
+  const hostUid = roomData.host;
+  const guestUid = roomData.guest;
+  if (!hostUid || !guestUid) return;
 
-    const myScore = scores[user.uid] ?? 0;
-    const oppUid = user.uid === hostUid ? guestUid : hostUid;
-    const oppScore = scores[oppUid] ?? 0;
-    const won = myScore > oppScore;
-    const draw = myScore === oppScore;
+  const myScore = scores[user.uid] ?? 0;
+  const oppUid = user.uid === hostUid ? guestUid : hostUid;
+  const oppScore = scores[oppUid] ?? 0;
+  const won = myScore > oppScore;
+  const draw = myScore === oppScore;
 
-    const myDocRef = doc(db, "users", user.uid);
-    const oppDocRef = doc(db, "users", oppUid);
-    const myEloSnap = await getDoc(myDocRef);
-    const oppEloSnap = await getDoc(oppDocRef);
-    const myElo = myEloSnap.exists() ? (myEloSnap.data().elo ?? 1000) : 1000;
-    const oppElo = oppEloSnap.exists() ? (oppEloSnap.data().elo ?? 1000) : 1000;
+  const myDocRef = doc(db, "users", user.uid);
+  const oppDocRef = doc(db, "users", oppUid);
+  const myEloSnap = await getDoc(myDocRef);
+  const oppEloSnap = await getDoc(oppDocRef);
+  const myElo = myEloSnap.exists() ? (myEloSnap.data().elo ?? 1000) : 1000;
+  const oppElo = oppEloSnap.exists() ? (oppEloSnap.data().elo ?? 1000) : 1000;
 
-    const expected = 1 / (1 + Math.pow(10, (oppElo - myElo) / 400));
-    const actual = won ? 1 : draw ? 0.5 : 0;
-    const eloChange = Math.round(32 * (actual - expected));
+  const expected = 1 / (1 + Math.pow(10, (oppElo - myElo) / 400));
+  const actual = won ? 1 : draw ? 0.5 : 0;
+  const eloChange = Math.round(32 * (actual - expected));
 
-    await updateDoc(myDocRef, {
-      elo: increment(eloChange),
-      xp: increment(won ? 100 : draw ? 30 : 10),
-      wins: increment(won ? 1 : 0),
-      losses: increment(!won && !draw ? 1 : 0),
+  // update MY stats
+  const myCurrentData = myEloSnap.exists() ? myEloSnap.data() : {};
+  await setDoc(myDocRef, {
+    elo: (myCurrentData.elo ?? 1000) + eloChange,
+    xp: (myCurrentData.xp ?? 0) + (won ? 100 : draw ? 30 : 10),
+    wins: (myCurrentData.wins ?? 0) + (won ? 1 : 0),
+    losses: (myCurrentData.losses ?? 0) + (!won && !draw ? 1 : 0),
+    lastQuizDate: new Date().toDateString(),
+  }, { merge: true });
+
+  // save match — only host saves to avoid duplicates
+  if (user.uid === hostUid) {
+    await addDoc(collection(db, "matches"), {
+      roomCode,
+      module: roomData.module,
+      host: hostUid,
+      hostName: roomData.hostName,
+      guest: guestUid,
+      guestName: roomData.guestName,
+      scores,
+      winner: won ? user.uid : oppUid,
+      draw,
+      playedAt: new Date().toISOString(),
     });
-
-    if (user.uid === hostUid) {
-      await addDoc(collection(db, "matches"), {
-        roomCode,
-        module: roomData.module,
-        host: hostUid,
-        hostName: roomData.hostName,
-        guest: guestUid,
-        guestName: roomData.guestName,
-        scores,
-        winner: won ? user.uid : oppUid,
-        draw,
-        playedAt: new Date().toISOString(),
-      });
-    }
-
-    await set(ref(realtimeDb, `rooms/${roomCode}/eloChanges/${user.uid}`), eloChange);
   }
+
+  await set(
+    ref(realtimeDb, `rooms/${roomCode}/eloChanges/${user.uid}`),
+    eloChange
+  );
+}
 
   // ── LOADING ──
   if (!roomData || !user) {
