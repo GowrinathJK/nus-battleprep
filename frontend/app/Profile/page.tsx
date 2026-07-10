@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../firebase";
-import { doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { doc, getDoc, setDoc, collection, query, where, getDocs, orderBy } from "firebase/firestore";
 import Navbar from "../../Components/Navbar";
 
 export default function ProfilePage() {
@@ -20,16 +20,48 @@ export default function ProfilePage() {
 
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) setUserData(docSnap.data());
 
-      const matchQuery = query(collection(db, "matches"), where("host", "==", user.uid));
-      const matchQuery2 = query(collection(db, "matches"), where("guest", "==", user.uid));
-      const [hostSnap, guestSnap] = await Promise.all([getDocs(matchQuery), getDocs(matchQuery2)]);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+
+        // daily streak logic like Duolingo
+        const today = new Date().toDateString();
+        const lastDate = data.lastQuizDate || "";
+        const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+        let newStreak = data.streak ?? 0;
+
+        if (lastDate === today) {
+          // already played today, keep streak
+          newStreak = data.streak ?? 1;
+        } else if (lastDate === yesterday) {
+          // played yesterday, increment streak
+          newStreak = (data.streak ?? 0) + 1;
+        } else if (lastDate !== "") {
+          // missed a day, reset streak
+          newStreak = 0;
+        }
+
+        // update streak and lastQuizDate in Firestore
+        await setDoc(docRef, {
+          streak: newStreak,
+          lastQuizDate: today,
+        }, { merge: true });
+
+        setUserData({ ...data, streak: newStreak });
+      }
+
+      // fetch last 5 matches
+      const q1 = query(collection(db, "matches"), where("host", "==", user.uid));
+      const q2 = query(collection(db, "matches"), where("guest", "==", user.uid));
+      const [snap1, snap2] = await Promise.all([getDocs(q1), getDocs(q2)]);
 
       const allMatches = [
-        ...hostSnap.docs.map(d => ({ id: d.id, ...d.data() })),
-        ...guestSnap.docs.map(d => ({ id: d.id, ...d.data() })),
-      ].sort((a: any, b: any) => new Date(b.playedAt).getTime() - new Date(a.playedAt).getTime());
+        ...snap1.docs.map(d => ({ id: d.id, ...d.data() })),
+        ...snap2.docs.map(d => ({ id: d.id, ...d.data() })),
+      ].sort((a: any, b: any) =>
+        new Date(b.playedAt).getTime() - new Date(a.playedAt).getTime()
+      ).slice(0, 5);
 
       setMatches(allMatches);
     });
@@ -51,8 +83,7 @@ export default function ProfilePage() {
   }
 
   function getOpponentName(match: any) {
-    if (match.host === currentUid) return match.guestName;
-    return match.hostName;
+    return match.host === currentUid ? match.guestName : match.hostName;
   }
 
   function getMyScore(match: any) {
@@ -80,6 +111,7 @@ export default function ProfilePage() {
       <Navbar />
       <div className="max-w-6xl mx-auto px-6 py-10">
 
+        {/* header */}
         <div className="bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-700 rounded-[40px] p-12 mb-10 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/10 rounded-full blur-3xl" />
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-10">
@@ -92,21 +124,22 @@ export default function ProfilePage() {
                 <h1 className="text-6xl font-black mb-4">{userData.name}</h1>
                 <div className="inline-flex items-center gap-3 bg-black/30 px-5 py-3 rounded-2xl">
                   <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
-                  <p className="text-xl font-bold">{getRank(userData.xp)}</p>
+                  <p className="text-xl font-bold">{getRank(userData.xp ?? 0)}</p>
                 </div>
               </div>
             </div>
             <div className="bg-black/30 rounded-3xl p-8 text-center min-w-[220px]">
               <p className="text-zinc-300 text-sm mb-3">TOTAL XP</p>
-              <h2 className="text-6xl font-black text-green-400">{userData.xp}</h2>
+              <h2 className="text-6xl font-black text-green-400">{userData.xp ?? 0}</h2>
             </div>
           </div>
         </div>
 
+        {/* stats — 4 cards */}
         <div className="grid lg:grid-cols-4 gap-6 mb-10">
           <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
             <p className="text-zinc-400 mb-3">ELO RATING</p>
-            <h2 className="text-5xl font-bold text-indigo-400">{userData.elo}</h2>
+            <h2 className="text-5xl font-bold text-indigo-400">{userData.elo ?? 1000}</h2>
           </div>
           <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
             <p className="text-zinc-400 mb-3">WINS</p>
@@ -122,28 +155,29 @@ export default function ProfilePage() {
           </div>
         </div>
 
+        {/* achievements */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-10 mb-10">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-4xl font-bold">Achievement Showcase</h2>
             <p className="text-zinc-400">Milestones unlocked through practice.</p>
           </div>
           <div className="grid md:grid-cols-4 gap-6">
-            <div className={`rounded-3xl p-8 text-center ${(userData.xp ?? 0) >= 10 ? "bg-indigo-900/40 border border-indigo-500" : "bg-zinc-800 opacity-40"}`}>
+            <div className={`rounded-3xl p-8 text-center transition-all ${(userData.xp ?? 0) >= 10 ? "bg-indigo-900/40 border border-indigo-500" : "bg-zinc-800 opacity-40"}`}>
               <div className="text-6xl mb-5">🥇</div>
               <h3 className="text-2xl font-bold mb-3">First Quiz</h3>
               <p className="text-zinc-400">Completed your first quiz.</p>
             </div>
-            <div className={`rounded-3xl p-8 text-center ${(userData.streak ?? 0) >= 3 ? "bg-orange-900/40 border border-orange-500" : "bg-zinc-800 opacity-40"}`}>
+            <div className={`rounded-3xl p-8 text-center transition-all ${(userData.streak ?? 0) >= 3 ? "bg-orange-900/40 border border-orange-500" : "bg-zinc-800 opacity-40"}`}>
               <div className="text-6xl mb-5">🔥</div>
               <h3 className="text-2xl font-bold mb-3">Streak Builder</h3>
               <p className="text-zinc-400">3 day streak maintained.</p>
             </div>
-            <div className={`rounded-3xl p-8 text-center ${(userData.xp ?? 0) >= 100 ? "bg-purple-900/40 border border-purple-500" : "bg-zinc-800 opacity-40"}`}>
+            <div className={`rounded-3xl p-8 text-center transition-all ${(userData.xp ?? 0) >= 100 ? "bg-purple-900/40 border border-purple-500" : "bg-zinc-800 opacity-40"}`}>
               <div className="text-6xl mb-5">🧠</div>
               <h3 className="text-2xl font-bold mb-3">100 XP</h3>
               <p className="text-zinc-400">Reached 100 XP.</p>
             </div>
-            <div className={`rounded-3xl p-8 text-center ${(userData.wins ?? 0) >= 1 ? "bg-yellow-900/40 border border-yellow-500" : "bg-zinc-800 opacity-40"}`}>
+            <div className={`rounded-3xl p-8 text-center transition-all ${(userData.wins ?? 0) >= 1 ? "bg-yellow-900/40 border border-yellow-500" : "bg-zinc-800 opacity-40"}`}>
               <div className="text-6xl mb-5">👑</div>
               <h3 className="text-2xl font-bold mb-3">First Win</h3>
               <p className="text-zinc-400">Won your first battle.</p>
@@ -151,8 +185,12 @@ export default function ProfilePage() {
           </div>
         </div>
 
+        {/* match history */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-10">
-          <h2 className="text-4xl font-bold mb-8">Match History</h2>
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-4xl font-bold">Match History</h2>
+            <p className="text-zinc-400">Last 5 battles</p>
+          </div>
           {matches.length === 0 ? (
             <div className="text-center py-10">
               <p className="text-6xl mb-4">⚔️</p>
@@ -165,14 +203,20 @@ export default function ProfilePage() {
                 return (
                   <div key={match.id} className="bg-zinc-800 rounded-2xl p-6 flex items-center justify-between">
                     <div className="flex items-center gap-6">
-                      <span className={`text-2xl font-black ${result.color}`}>{result.label}</span>
+                      <div className={`text-2xl font-black w-16 text-center ${result.color}`}>
+                        {result.label}
+                      </div>
                       <div>
                         <p className="text-xl font-bold">vs {getOpponentName(match)}</p>
-                        <p className="text-zinc-400">{match.module} · {new Date(match.playedAt).toLocaleDateString()}</p>
+                        <p className="text-zinc-400 text-sm">
+                          {match.module} · {new Date(match.playedAt).toLocaleDateString()}
+                        </p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl font-bold">{getMyScore(match)} — {getOppScore(match)}</p>
+                      <p className="text-2xl font-bold">
+                        {getMyScore(match)} — {getOppScore(match)}
+                      </p>
                       <p className="text-zinc-400 text-sm">Score</p>
                     </div>
                   </div>
