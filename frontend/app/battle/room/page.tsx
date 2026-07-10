@@ -199,13 +199,27 @@ async function processResults() {
 
   // update MY stats
   const myCurrentData = myEloSnap.exists() ? myEloSnap.data() : {};
-  await setDoc(myDocRef, {
-    elo: (myCurrentData.elo ?? 1000) + eloChange,
-    xp: (myCurrentData.xp ?? 0) + (won ? 100 : draw ? 30 : 10),
-    wins: (myCurrentData.wins ?? 0) + (won ? 1 : 0),
-    losses: (myCurrentData.losses ?? 0) + (!won && !draw ? 1 : 0),
-    lastQuizDate: new Date().toDateString(),
-  }, { merge: true });
+  const today = new Date().toDateString();
+const yesterday = new Date(Date.now() - 86400000).toDateString();
+const lastDate = myCurrentData.lastQuizDate || "";
+
+let newStreak = myCurrentData.streak ?? 0;
+if (lastDate === today) {
+  newStreak = myCurrentData.streak ?? 1;
+} else if (lastDate === yesterday) {
+  newStreak = (myCurrentData.streak ?? 0) + 1;
+} else {
+  newStreak = 1;
+}
+
+await setDoc(myDocRef, {
+  elo: (myCurrentData.elo ?? 1000) + eloChange,
+  xp: (myCurrentData.xp ?? 0) + (won ? 100 : draw ? 30 : 10),
+  wins: (myCurrentData.wins ?? 0) + (won ? 1 : 0),
+  losses: (myCurrentData.losses ?? 0) + (!won && !draw ? 1 : 0),
+  lastQuizDate: today,
+  streak: newStreak,
+}, { merge: true });
 
   // save match — only host saves to avoid duplicates
   if (user.uid === hostUid) {
