@@ -2,19 +2,26 @@
 
 import { useRouter } from "next/navigation";
 import { signInWithGoogle, handleGoogleRedirect } from "../../auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // handle redirect result when coming back from Google
     handleGoogleRedirect().then((user) => {
       if (user) router.push("/dashboard");
     });
   }, []);
 
   async function handleLogin() {
-    await signInWithGoogle();
+    setLoading(true);
+    const user = await signInWithGoogle();
+    if (user) {
+      router.push("/dashboard");
+    }
+    setLoading(false);
   }
 
   return (
@@ -30,9 +37,10 @@ export default function LoginPage() {
         <div className="space-y-4">
           <button
             onClick={handleLogin}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 transition-all duration-200 p-4 rounded-2xl text-xl font-semibold hover:scale-[1.02]"
+            disabled={loading}
+            className="w-full bg-indigo-600 hover:bg-indigo-500 transition-all duration-200 p-4 rounded-2xl text-xl font-semibold hover:scale-[1.02] disabled:opacity-50"
           >
-            Sign in with Google
+            {loading ? "Signing in..." : "Sign in with Google"}
           </button>
         </div>
         <div className="mt-8 border-t border-zinc-800 pt-6">
