@@ -241,7 +241,7 @@ export default function BattlePage() {
       </main>
     );
   }
-
+ 
   // LOBBY
   const isHost = lobbyData?.host === user?.uid;
   return (
