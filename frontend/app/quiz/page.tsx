@@ -156,8 +156,7 @@ function QuizContent() {
           user.uid
         );
 
-        const today =
-          new Date().toDateString();
+        const today = new Date().toLocaleDateString("en-SG"); 
 
         const userSnap = await getDoc(userRef);
 const userData = userSnap.exists() ? userSnap.data() : {};
