@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
-import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 import Navbar from "../../Components/Navbar";
 
@@ -16,51 +16,44 @@ export default function LeaderboardPage() {
   const [matches, setMatches] = useState<any[]>([]);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (!user) router.push("/login");
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        router.push("/login");
+        return;
+      }
+
+      // only fetch after confirming user is signed in
+      const snap = await getDocs(collection(db, "users"));
+      const allUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      setUsers(allUsers);
     });
     return () => unsub();
   }, []);
 
   useEffect(() => {
-    async function fetchLeaderboard() {
-      const q = query(collection(db, "users"), orderBy(sortBy, "desc"));
-      const querySnapshot = await getDocs(q);
-      const leaderboardUsers = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setUsers(leaderboardUsers);
-    }
-    fetchLeaderboard();
-  }, [sortBy]);
-
-  useEffect(() => {
     async function fetchMatches() {
-      if (filterModule === "all") {
-        setMatches([]);
-        return;
-      }
-      const q = query(
-        collection(db, "matches"),
-        where("module", "==", filterModule)
-      );
+      if (filterModule === "all") { setMatches([]); return; }
+      const q = query(collection(db, "matches"), where("module", "==", filterModule));
       const snap = await getDocs(q);
-      const matchList = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      setMatches(matchList);
+      setMatches(snap.docs.map(d => ({ id: d.id, ...d.data() })));
     }
     fetchMatches();
   }, [filterModule]);
 
-  // when filtering by module, compute per-user stats from matches
   function getModuleStats(userId: string) {
-    const userMatches = matches.filter(
-      m => m.host === userId || m.guest === userId
-    );
+    const userMatches = matches.filter(m => m.host === userId || m.guest === userId);
     const wins = userMatches.filter(m => m.winner === userId).length;
     const total = userMatches.length;
     return { wins, total };
   }
+
+  const displayUsers = [...users].sort((a, b) => {
+    if (filterModule !== "all") {
+      return getModuleStats(b.id).wins - getModuleStats(a.id).wins;
+    }
+    if (sortBy === "elo") return (b.elo ?? 1000) - (a.elo ?? 1000);
+    return (b.xp ?? 0) - (a.xp ?? 0);
+  });
 
   function getMedal(index: number) {
     if (index === 0) return "🥇";
@@ -76,29 +69,16 @@ export default function LeaderboardPage() {
     return "from-zinc-900 to-zinc-900 border-zinc-800";
   }
 
-  // if filtering by module, sort users by wins in that module
-  const displayUsers = filterModule === "all"
-    ? users
-    : [...users].sort((a, b) => {
-        const aWins = getModuleStats(a.id).wins;
-        const bWins = getModuleStats(b.id).wins;
-        return bWins - aWins;
-      });
-
   return (
     <main className="min-h-screen bg-black text-white">
       <Navbar />
       <div className="max-w-6xl mx-auto px-6 py-10">
-
-        {/* header */}
         <div className="mb-10">
           <h1 className="text-6xl font-bold mb-4">Leaderboard</h1>
           <p className="text-zinc-400 text-xl">Compete against other students and climb the rankings.</p>
         </div>
 
-        {/* filters */}
         <div className="flex flex-wrap gap-4 mb-10">
-          {/* module filter */}
           <div className="flex gap-3">
             <button
               onClick={() => setFilterModule("all")}
@@ -120,7 +100,6 @@ export default function LeaderboardPage() {
             </button>
           </div>
 
-          {/* sort filter — only when showing all */}
           {filterModule === "all" && (
             <div className="flex gap-3 ml-auto">
               <button
@@ -139,7 +118,6 @@ export default function LeaderboardPage() {
           )}
         </div>
 
-        {/* list */}
         <div className="space-y-5">
           {displayUsers.map((user, index) => {
             const moduleStats = filterModule !== "all" ? getModuleStats(user.id) : null;
