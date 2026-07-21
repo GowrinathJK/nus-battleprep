@@ -24,23 +24,21 @@ export default function ProfilePage() {
       if (docSnap.exists()) {
         const data = docSnap.data();
 
-        // daily streak logic like Duolingo
-        const today = new Date().toDateString();
-        const lastDate = data.lastQuizDate || "";
-        const yesterday = new Date(Date.now() - 86400000).toDateString();
+       const today = new Date().toDateString();
+const yesterday = new Date(Date.now() - 86400000).toDateString();
+const lastDate = data.lastQuizDate || "";
 
-        let newStreak = data.streak ?? 0;
+const isToday = lastDate === today;
+const isYesterday = lastDate === yesterday;
 
-        if (lastDate === today) {
-          // already played today, keep streak
-          newStreak = data.streak ?? 1;
-        } else if (lastDate === yesterday) {
-          // played yesterday, increment streak
-          newStreak = (data.streak ?? 0) + 1;
-        } else if (lastDate !== "") {
-          // missed a day, reset streak
-          newStreak = 0;
-        }
+let newStreak = data.streak ?? 0;
+if (isToday) {
+  newStreak = data.streak ?? 1;
+} else if (isYesterday) {
+  newStreak = (data.streak ?? 0) + 1;
+} else if (lastDate !== "") {
+  newStreak = 0;
+}
 
         // update streak and lastQuizDate in Firestore
         await setDoc(docRef, {
