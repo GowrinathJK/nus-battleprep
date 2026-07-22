@@ -203,12 +203,16 @@ const today = new Date().toDateString();
 const yesterday = new Date(Date.now() - 86400000).toDateString();
 const lastDate = myCurrentData.lastQuizDate || "";
 
-let newStreak = myCurrentData.streak ?? 0;
+const currentStreak = myCurrentData.streak ?? 0;
+let newStreak: number;
 if (lastDate === today) {
-  newStreak = myCurrentData.streak ?? 1;
+  // already played today — keep streak as is, minimum 1
+  newStreak = currentStreak > 0 ? currentStreak : 1;
 } else if (lastDate === yesterday) {
-  newStreak = (myCurrentData.streak ?? 0) + 1;
+  // played yesterday — increment
+  newStreak = currentStreak + 1;
 } else {
+  // first time or missed a day — start at 1
   newStreak = 1;
 }
 
