@@ -77,11 +77,11 @@ function QuizContent() {
           ...doc.data(),
         }));
 
-            fetchedQuestions =
-        fetchedQuestions.sort(
-          () => Math.random() - 0.5
-        );
-
+          // Fisher-Yates shuffle
+for (let i = fetchedQuestions.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [fetchedQuestions[i], fetchedQuestions[j]] = [fetchedQuestions[j], fetchedQuestions[i]];
+}
       const selectedQuestions =
         fetchedQuestions.slice(0, 10);
 
