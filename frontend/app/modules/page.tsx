@@ -25,7 +25,7 @@ export default function ModulesPage() {
 
       difficulty: "Intermediate",
 
-      questions: 100,
+      questions: 300,
 
       color:
         "from-indigo-700 via-blue-700 to-cyan-700",
@@ -41,7 +41,7 @@ export default function ModulesPage() {
 
       difficulty: "Advanced",
 
-      questions: 100,
+      questions: 300,
 
       color:
         "from-purple-700 via-pink-700 to-rose-700",
