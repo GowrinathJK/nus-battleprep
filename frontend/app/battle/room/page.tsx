@@ -198,10 +198,9 @@ async function processResults() {
   const eloChange = Math.round(32 * (actual - expected));
 
   // update MY stats
-  const myCurrentData = myEloSnap.exists() ? myEloSnap.data() : {};
- const now = new Date();
-const today = now.toLocaleDateString("en-SG");
-const yesterday = new Date(Date.now() - 86400000).toLocaleDateString("en-SG");
+const myCurrentData = myEloSnap.exists() ? myEloSnap.data() : {};
+const today = new Date().toDateString();
+const yesterday = new Date(Date.now() - 86400000).toDateString();
 const lastDate = myCurrentData.lastQuizDate || "";
 
 let newStreak = myCurrentData.streak ?? 0;
