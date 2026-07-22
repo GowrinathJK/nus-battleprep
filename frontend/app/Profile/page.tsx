@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../firebase";
-import { doc, getDoc, setDoc, collection, query, where, getDocs, orderBy } from "firebase/firestore";
+import { doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
 import Navbar from "../../Components/Navbar";
 
 export default function ProfilePage() {
@@ -14,58 +14,32 @@ export default function ProfilePage() {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (!user) { router.push("/login"); return; }
-      setCurrentUid(user.uid);
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (!user) { router.push("/login"); return; }
+    setCurrentUid(user.uid);
 
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const data = docSnap.data();
+    if (docSnap.exists()) {
+      setUserData(docSnap.data());
+    }
 
-       const today = new Date().toDateString();
-const yesterday = new Date(Date.now() - 86400000).toDateString();
-const lastDate = data.lastQuizDate || "";
+    const q1 = query(collection(db, "matches"), where("host", "==", user.uid));
+    const q2 = query(collection(db, "matches"), where("guest", "==", user.uid));
+    const [snap1, snap2] = await Promise.all([getDocs(q1), getDocs(q2)]);
 
-const isToday = lastDate === today;
-const isYesterday = lastDate === yesterday;
+    const allMatches = [
+      ...snap1.docs.map(d => ({ id: d.id, ...d.data() })),
+      ...snap2.docs.map(d => ({ id: d.id, ...d.data() })),
+    ].sort((a: any, b: any) =>
+      new Date(b.playedAt).getTime() - new Date(a.playedAt).getTime()
+    ).slice(0, 5);
 
-let newStreak = data.streak ?? 0;
-if (isToday) {
-  newStreak = data.streak ?? 1;
-} else if (isYesterday) {
-  newStreak = (data.streak ?? 0) + 1;
-} else if (lastDate !== "") {
-  newStreak = 0;
-}
-
-        // update streak and lastQuizDate in Firestore
-        await setDoc(docRef, {
-          streak: newStreak,
-          lastQuizDate: today,
-        }, { merge: true });
-
-        setUserData({ ...data, streak: newStreak });
-      }
-
-      // fetch last 5 matches
-      const q1 = query(collection(db, "matches"), where("host", "==", user.uid));
-      const q2 = query(collection(db, "matches"), where("guest", "==", user.uid));
-      const [snap1, snap2] = await Promise.all([getDocs(q1), getDocs(q2)]);
-
-      const allMatches = [
-        ...snap1.docs.map(d => ({ id: d.id, ...d.data() })),
-        ...snap2.docs.map(d => ({ id: d.id, ...d.data() })),
-      ].sort((a: any, b: any) =>
-        new Date(b.playedAt).getTime() - new Date(a.playedAt).getTime()
-      ).slice(0, 5);
-
-      setMatches(allMatches);
-    });
-    return () => unsubscribe();
-  }, []);
-
+    setMatches(allMatches);
+  });
+  return () => unsubscribe();
+}, []);
   function getRank(xp: number) {
     if (xp >= 500) return "Legend";
     if (xp >= 250) return "Bell Curve Destroyer";
