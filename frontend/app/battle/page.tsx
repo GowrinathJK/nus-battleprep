@@ -57,7 +57,11 @@ export default function BattlePage() {
       const q = query(collection(db, "questions"), where("module", "==", selectedModule));
       const snap = await getDocs(q);
       let allQs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      allQs = allQs.sort(() => Math.random() - 0.5).slice(0, 10);
+      for (let i = allQs.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [allQs[i], allQs[j]] = [allQs[j], allQs[i]];
+}
+allQs = allQs.slice(0, 10);
       if (allQs.length < 5) {
         setError("Not enough questions in Firestore for this module. Import your question bank first.");
         setLoading(false);
