@@ -1,8 +1,10 @@
 "use client";
 
 import Navbar from "../../Components/Navbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const modules = [
   "CS2030S",
@@ -18,6 +20,13 @@ const difficulties = [
 export default function SetupPage() {
 
   const router = useRouter();
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (!user) router.push("/login");
+    });
+    return () => unsub();
+  }, []);
 
   const [selectedModule, setSelectedModule] =
     useState("");

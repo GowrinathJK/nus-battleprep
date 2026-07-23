@@ -3,9 +3,18 @@
 import Navbar from "../../Components/Navbar";
 
 import { useRouter } from "next/navigation";
-
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
 export default function ModulesPage() {
   const router = useRouter();
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (!user) router.push("/login");
+    });
+    return () => unsub();
+  }, []);
 
   const modules = [
     {
@@ -16,7 +25,7 @@ export default function ModulesPage() {
 
       difficulty: "Intermediate",
 
-      questions: 120,
+      questions: 300,
 
       color:
         "from-indigo-700 via-blue-700 to-cyan-700",
@@ -32,7 +41,7 @@ export default function ModulesPage() {
 
       difficulty: "Advanced",
 
-      questions: 180,
+      questions: 300,
 
       color:
         "from-purple-700 via-pink-700 to-rose-700",

@@ -1,10 +1,9 @@
-import { initializeApp } from "firebase/app";
+// Usage: node importQuestions.mjs path/to/questions.json
 
-import {
-  getFirestore,
-  collection,
-  addDoc,
-} from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, writeBatch, doc } from "firebase/firestore";
+import { readFileSync } from "fs";
+import { resolve } from "path";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBzRA44ceQ594wxqT-6zrQuuCXhY7oMqzI",
@@ -13,78 +12,43 @@ const firebaseConfig = {
   storageBucket: "nus-battleprep.firebasestorage.app",
   messagingSenderId: "887481925547",
   appId: "1:887481925547:web:1df2501915366232965cee",
+  databaseURL: "https://nus-battleprep-default-rtdb.asia-southeast1.firebasedatabase.app",
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
-const questions = [
-  {
-    module: "CS2030S",
-    topic: "Streams",
-    difficulty: "Easy",
-    question: "What does map() do in Java Streams?",
-    options: [
-      "Transforms elements",
-      "Filters elements",
-      "Sorts elements",
-      "Deletes elements"
-    ],
-    answer: "Transforms elements"
-  },
-
-  {
-    module: "CS2030S",
-    topic: "OOP",
-    difficulty: "Easy",
-    question: "What does encapsulation mean?",
-    options: [
-      "Hiding data",
-      "Inheritance",
-      "Looping",
-      "Sorting"
-    ],
-    answer: "Hiding data"
-  },
-
-  {
-    module: "CS2030S",
-    topic: "Generics",
-    difficulty: "Easy",
-    question: "Why are generics used in Java?",
-    options: [
-      "Type safety",
-      "Faster internet",
-      "Graphics rendering",
-      "Memory cleaning"
-    ],
-    answer: "Type safety"
-  },
-
-  {
-    module: "CS2030S",
-    topic: "Lambda",
-    difficulty: "Easy",
-    question: "What is a lambda expression mainly used for?",
-    options: [
-      "Functional programming",
-      "File compression",
-      "Database indexing",
-      "Networking"
-    ],
-    answer: "Functional programming"
-  }
-];
-
-async function uploadQuestions() {
-  for (const question of questions) {
-    await addDoc(collection(db, "questions"), question);
-
-    console.log("Uploaded:", question.question);
-  }
-
-  console.log("DONE");
+const filePath = process.argv[2];
+if (!filePath) {
+  console.error("Usage: node importQuestions.mjs path/to/questions.json");
+  process.exit(1);
 }
 
-uploadQuestions();
+const questions = JSON.parse(readFileSync(resolve(filePath), "utf-8"));
+console.log(`Importing ${questions.length} questions...`);
+
+const BATCH_SIZE = 499;
+let imported = 0;
+
+for (let i = 0; i < questions.length; i += BATCH_SIZE) {
+  const batch = writeBatch(db);
+  const chunk = questions.slice(i, i + BATCH_SIZE);
+  for (const q of chunk) {
+    const docRef = doc(collection(db, "questions"));
+    batch.set(docRef, {
+      module: q.module,
+      topic: q.topic,
+      scope: q.scope || "",
+      difficulty: q.difficulty,
+      question: q.question,
+      options: q.options,
+      answer: q.answer,
+    });
+  }
+  await batch.commit();
+  imported += chunk.length;
+  console.log(`  ✓ ${imported}/${questions.length} imported`);
+}
+
+console.log("Done!");
+process.exit(0);
